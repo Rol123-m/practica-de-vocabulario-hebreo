@@ -2,14 +2,29 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vocabulario Hebreo Bíblico - 250 Palabras</title>
-    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-    <link href="https://cdn.jsdelivr.net/npm/fontsource-hebrew@5/css/fontsource-hebrew.css" rel="stylesheet">
-    <style>
-        @import url('https://cdn.jsdelivr.net/npm/fontsource-hebrew@5/css/regular.css');
-        @import url('https://cdn.jsdelivr.net/npm/fontsource-hebrew@5/css/bold.css');
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#0f0f1a">
+    <meta name="background-color" content="#0f0f1a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Hebreo Bíblico">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="description" content="Practica 250 palabras del hebreo bíblico con flashcards, audio y juegos interactivos">
+    <title>Vocabulario Hebreo Bíblico</title>
 
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+
+    <!-- Favicon y íconos -->
+    <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
+    <link rel="apple-touch-icon" href="icon-192.png">
+
+    <!-- Font -->
+    <link href="https://cdn.jsdelivr.net/npm/fontsource-hebrew@5/css/regular.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/fontsource-hebrew@5/css/bold.css" rel="stylesheet">
+
+    <style>
         :root {
             --bg-primary: #0f0f1a;
             --bg-secondary: #1a1a2e;
@@ -30,13 +45,11 @@
             --level-easy: #2ecc71;
             --level-medium: #f39c12;
             --level-hard: #e74c3c;
+            --safe-top: env(safe-area-inset-top);
+            --safe-bottom: env(safe-area-inset-bottom);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
@@ -44,6 +57,8 @@
             color: var(--text-primary);
             min-height: 100vh;
             overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent;
+            overscroll-behavior: none;
         }
 
         .hebrew {
@@ -69,134 +84,85 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
+            padding-bottom: calc(20px + var(--safe-bottom));
             min-height: 100vh;
         }
 
-        .header {
-            text-align: center;
-            padding: 30px 0;
-            margin-bottom: 10px;
-        }
+        .header { text-align: center; padding: 30px 0; margin-bottom: 10px; }
 
         .header h1 {
-            font-size: clamp(1.6rem, 4.5vw, 2.6rem);
+            font-size: clamp(1.5rem, 4.5vw, 2.4rem);
             background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
-        .header h1 .hebrew-char {
-            -webkit-text-fill-color: var(--accent-secondary);
-        }
+        .header h1 .hebrew-char { -webkit-text-fill-color: var(--accent-secondary); }
+        .header p { color: var(--text-secondary); font-size: 0.95rem; }
 
-        .header p {
-            color: var(--text-secondary);
-            font-size: 1rem;
-        }
-
-        /* Stats Bar */
         .stats-bar {
             display: flex;
             justify-content: center;
-            gap: 14px;
+            gap: 10px;
             flex-wrap: wrap;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
         }
 
         .stat-item {
             background: var(--bg-card);
             border: 1px solid rgba(255,255,255,0.06);
             border-radius: 12px;
-            padding: 10px 20px;
+            padding: 10px 16px;
             text-align: center;
-            min-width: 100px;
+            min-width: 80px;
             transition: var(--transition);
         }
 
-        .stat-item:hover { transform: translateY(-2px); border-color: rgba(255,255,255,0.12); }
+        .stat-value { font-size: 1.3rem; font-weight: 700; color: var(--accent-tertiary); }
+        .stat-label { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
 
-        .stat-value { font-size: 1.4rem; font-weight: 700; color: var(--accent-tertiary); }
-        .stat-label { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
+        .level-section { text-align: center; margin-bottom: 16px; }
+        .level-section h3 { font-size: 0.95rem; color: var(--text-secondary); margin-bottom: 8px; }
 
-        /* Level Selector */
-        .level-section {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .level-section h3 {
-            font-size: 1rem;
-            color: var(--text-secondary);
-            margin-bottom: 10px;
-        }
-
-        .level-btns {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
+        .level-btns { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
 
         .level-btn {
-            padding: 10px 24px;
+            padding: 8px 18px;
             border-radius: 25px;
             border: 2px solid rgba(255,255,255,0.1);
             background: transparent;
             color: var(--text-secondary);
-            font-size: 0.95rem;
+            font-size: 0.88rem;
             font-weight: 600;
             cursor: pointer;
             transition: var(--transition);
             position: relative;
             overflow: hidden;
-        }
-
-        .level-btn::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            opacity: 0;
-            transition: var(--transition);
+            touch-action: manipulation;
         }
 
         .level-btn.easy { border-color: var(--level-easy); }
-        .level-btn.easy:hover, .level-btn.easy.active { background: rgba(46, 204, 113, 0.15); color: var(--level-easy); opacity: 1; }
-        .level-btn.easy.active { box-shadow: 0 0 20px rgba(46, 204, 113, 0.2); }
-
+        .level-btn.easy:hover, .level-btn.easy.active { background: rgba(46, 204, 113, 0.15); color: var(--level-easy); }
         .level-btn.medium { border-color: var(--level-medium); }
         .level-btn.medium:hover, .level-btn.medium.active { background: rgba(243, 156, 18, 0.15); color: var(--level-medium); }
-        .level-btn.medium.active { box-shadow: 0 0 20px rgba(243, 156, 18, 0.2); }
-
         .level-btn.hard { border-color: var(--level-hard); }
         .level-btn.hard:hover, .level-btn.hard.active { background: rgba(231, 76, 60, 0.15); color: var(--level-hard); }
-        .level-btn.hard.active { box-shadow: 0 0 20px rgba(231, 76, 60, 0.2); }
+        .level-btn .level-count { display: block; font-size: 0.65rem; opacity: 0.7; margin-top: 2px; }
 
-        .level-btn .level-count {
-            display: block;
-            font-size: 0.7rem;
-            opacity: 0.7;
-            margin-top: 2px;
-        }
-
-        /* Mode Selection */
-        .mode-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 14px;
-            margin-bottom: 24px;
-        }
+        .mode-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 20px; }
 
         .mode-card {
             background: var(--bg-card);
             border: 2px solid rgba(255,255,255,0.06);
             border-radius: var(--border-radius);
-            padding: 24px 20px;
+            padding: 20px 16px;
             cursor: pointer;
             transition: var(--transition);
             position: relative;
             overflow: hidden;
+            touch-action: manipulation;
         }
 
         .mode-card::before {
@@ -209,77 +175,33 @@
             transition: var(--transition);
         }
 
-        .mode-card:hover {
-            transform: translateY(-4px);
-            border-color: rgba(233, 69, 96, 0.3);
-            box-shadow: var(--shadow);
-        }
-
+        .mode-card:hover { transform: translateY(-3px); border-color: rgba(233, 69, 96, 0.3); box-shadow: var(--shadow); }
         .mode-card:hover::before { opacity: 1; }
+        .mode-card:active { transform: scale(0.97); }
 
-        .mode-icon { font-size: 2.2rem; margin-bottom: 10px; display: block; }
-        .mode-name { font-size: 1.1rem; font-weight: 600; margin-bottom: 4px; }
-        .mode-desc { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.4; }
+        .mode-icon { font-size: 2rem; margin-bottom: 8px; display: block; }
+        .mode-name { font-size: 1.05rem; font-weight: 600; margin-bottom: 3px; }
+        .mode-desc { font-size: 0.78rem; color: var(--text-secondary); line-height: 1.35; }
 
-        /* Game Area */
-        .game-area { display: none; animation: fadeIn 0.4s ease; }
+        .game-area { display: none; animation: fadeIn 0.35s ease; }
         .game-area.active { display: block; }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes shake { 0%, 100% { transform: translateX(0); } 20% { transform: translateX(-8px); } 40% { transform: translateX(8px); } 60% { transform: translateX(-5px); } 80% { transform: translateX(5px); } }
+        @keyframes correctFlash { 0% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.6); } 100% { box-shadow: 0 0 0 20px rgba(46, 204, 113, 0); } }
+        @keyframes bounceIn { 0% { transform: scale(0.3); opacity: 0; } 50% { transform: scale(1.05); } 70% { transform: scale(0.9); } 100% { transform: scale(1); opacity: 1; } }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.08); } }
 
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateX(30px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            20% { transform: translateX(-8px); }
-            40% { transform: translateX(8px); }
-            60% { transform: translateX(-5px); }
-            80% { transform: translateX(5px); }
-        }
-
-        @keyframes correctFlash {
-            0% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.6); }
-            100% { box-shadow: 0 0 0 20px rgba(46, 204, 113, 0); }
-        }
-
-        @keyframes bounceIn {
-            0% { transform: scale(0.3); opacity: 0; }
-            50% { transform: scale(1.05); }
-            70% { transform: scale(0.9); }
-            100% { transform: scale(1); opacity: 1; }
-        }
-
-        /* Game Header */
-        .game-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 16px;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .game-title { font-size: 1.2rem; font-weight: 600; }
-
-        .game-controls { display: flex; gap: 10px; align-items: center; }
+        .game-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 8px; }
+        .game-title { font-size: 1.15rem; font-weight: 600; }
+        .game-controls { display: flex; gap: 8px; align-items: center; }
 
         .progress-bar-container {
             width: 100%;
             height: 6px;
             background: rgba(255,255,255,0.1);
             border-radius: 3px;
-            margin-bottom: 20px;
+            margin-bottom: 18px;
             overflow: hidden;
         }
 
@@ -290,30 +212,29 @@
             transition: width 0.4s ease;
         }
 
-        /* Buttons */
         .btn {
-            padding: 10px 20px;
+            padding: 10px 18px;
             border: none;
             border-radius: 10px;
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             font-weight: 600;
             cursor: pointer;
             transition: var(--transition);
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+            gap: 5px;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
         }
 
         .btn-primary { background: linear-gradient(135deg, var(--accent-primary), #c0392b); color: white; }
         .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(233, 69, 96, 0.4); }
-
         .btn-secondary { background: var(--bg-card); color: var(--text-primary); border: 1px solid rgba(255,255,255,0.1); }
-        .btn-secondary:hover { background: var(--bg-card-hover); border-color: rgba(255,255,255,0.2); }
-
+        .btn-secondary:hover { background: var(--bg-card-hover); }
         .btn-success { background: linear-gradient(135deg, var(--success), #27ae60); color: white; }
-
-        .btn-back { background: transparent; color: var(--text-secondary); border: 1px solid rgba(255,255,255,0.1); padding: 8px 16px; }
+        .btn-back { background: transparent; color: var(--text-secondary); border: 1px solid rgba(255,255,255,0.1); padding: 7px 14px; }
         .btn-back:hover { color: var(--text-primary); border-color: rgba(255,255,255,0.3); }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none !important; }
 
         .btn-audio {
             width: 44px; height: 44px;
@@ -327,34 +248,25 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
+            touch-action: manipulation;
         }
 
-        .btn-audio:hover {
-            background: rgba(78, 205, 196, 0.2);
-            transform: scale(1.1);
-            box-shadow: 0 0 15px rgba(78, 205, 196, 0.3);
-        }
-
-        .btn-audio.speaking {
-            animation: pulse 0.6s infinite;
-            background: rgba(78, 205, 196, 0.3);
-        }
-
-        .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none !important; }
+        .btn-audio:hover { background: rgba(78, 205, 196, 0.2); transform: scale(1.1); }
+        .btn-audio.speaking { animation: pulse 0.6s infinite; background: rgba(78, 205, 196, 0.3); }
 
         /* Flashcard */
         .flashcard-container {
             perspective: 1000px;
             width: 100%;
-            max-width: 500px;
-            height: 300px;
-            margin: 0 auto 20px;
+            max-width: 480px;
+            height: 280px;
+            margin: 0 auto 18px;
             cursor: pointer;
+            touch-action: manipulation;
         }
 
         .flashcard {
-            width: 100%;
-            height: 100%;
+            width: 100%; height: 100%;
             position: relative;
             transform-style: preserve-3d;
             transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
@@ -364,38 +276,31 @@
 
         .flashcard-front, .flashcard-back {
             position: absolute;
-            width: 100%;
-            height: 100%;
+            width: 100%; height: 100%;
             backface-visibility: hidden;
             border-radius: var(--border-radius);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 24px;
+            padding: 22px;
             border: 1px solid rgba(255,255,255,0.08);
         }
 
         .flashcard-front { background: linear-gradient(135deg, var(--bg-card), var(--bg-secondary)); }
         .flashcard-back { background: linear-gradient(135deg, #1a3a2a, var(--bg-card)); transform: rotateY(180deg); }
 
-        .flashcard-word { font-size: clamp(2.5rem, 8vw, 4rem); margin-bottom: 12px; line-height: 1.2; }
-        .flashcard-translit { font-size: 1.05rem; color: var(--accent-secondary); margin-bottom: 6px; }
-        .flashcard-meaning { font-size: clamp(1.4rem, 4vw, 2rem); font-weight: 600; margin-bottom: 8px; text-align: center; }
-        .flashcard-pos { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
-        .flashcard-hint { font-size: 0.78rem; color: var(--text-muted); margin-top: 10px; }
+        .flashcard-word { font-size: clamp(2.5rem, 8vw, 3.8rem); margin-bottom: 10px; line-height: 1.2; }
+        .flashcard-translit { font-size: 1rem; color: var(--accent-secondary); margin-bottom: 5px; }
+        .flashcard-meaning { font-size: clamp(1.3rem, 4vw, 1.8rem); font-weight: 600; margin-bottom: 6px; text-align: center; }
+        .flashcard-pos { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+        .flashcard-hint { font-size: 0.75rem; color: var(--text-muted); margin-top: 8px; }
 
-        .flashcard-nav {
-            display: flex;
-            justify-content: center;
-            gap: 14px;
-            align-items: center;
-        }
-
-        .flashcard-counter { font-size: 0.9rem; color: var(--text-secondary); min-width: 90px; text-align: center; }
+        .flashcard-nav { display: flex; justify-content: center; gap: 12px; align-items: center; }
+        .flashcard-counter { font-size: 0.85rem; color: var(--text-secondary); min-width: 80px; text-align: center; }
 
         .nav-btn {
-            width: 48px; height: 48px;
+            width: 46px; height: 46px;
             border-radius: 50%;
             border: 1px solid rgba(255,255,255,0.1);
             background: var(--bg-card);
@@ -406,12 +311,13 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            touch-action: manipulation;
         }
 
         .nav-btn:hover { background: var(--bg-card-hover); border-color: var(--accent-primary); }
 
         .flip-btn {
-            width: 56px; height: 56px;
+            width: 54px; height: 54px;
             border-radius: 50%;
             border: 2px solid var(--accent-secondary);
             background: rgba(245, 166, 35, 0.1);
@@ -419,64 +325,44 @@
             font-size: 1.3rem;
             cursor: pointer;
             transition: var(--transition);
+            touch-action: manipulation;
         }
 
         .flip-btn:hover { background: rgba(245, 166, 35, 0.2); transform: scale(1.1); }
 
         /* Multiple Choice */
-        .mc-question { text-align: center; margin-bottom: 24px; }
-        .mc-word { font-size: clamp(2.5rem, 8vw, 4rem); margin-bottom: 8px; color: var(--accent-secondary); }
-        .mc-translit { color: var(--text-muted); font-size: 0.95rem; }
+        .mc-question { text-align: center; margin-bottom: 20px; }
+        .mc-word { font-size: clamp(2.5rem, 8vw, 3.8rem); margin-bottom: 6px; color: var(--accent-secondary); }
+        .mc-translit { color: var(--text-muted); font-size: 0.9rem; }
 
-        .mc-options {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            max-width: 600px;
-            margin: 0 auto;
-        }
+        .mc-options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; max-width: 580px; margin: 0 auto; }
 
         .mc-option {
             background: var(--bg-card);
             border: 2px solid rgba(255,255,255,0.06);
-            border-radius: 14px;
-            padding: 18px;
+            border-radius: 12px;
+            padding: 16px;
             text-align: center;
             cursor: pointer;
             transition: var(--transition);
-            font-size: 1.05rem;
-            position: relative;
+            font-size: 1rem;
+            touch-action: manipulation;
         }
 
         .mc-option:hover { border-color: var(--accent-blue); background: var(--bg-card-hover); transform: translateY(-2px); }
+        .mc-option:active { transform: scale(0.96); }
         .mc-option.correct { border-color: var(--success); background: rgba(46, 204, 113, 0.15); animation: correctFlash 0.5s ease; }
         .mc-option.wrong { border-color: var(--error); background: rgba(231, 76, 60, 0.15); animation: shake 0.5s ease; }
         .mc-option.disabled { pointer-events: none; opacity: 0.6; }
-        .mc-option .audio-btn-inline {
-            position: absolute;
-            top: 6px;
-            right: 6px;
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            border: none;
-            background: rgba(78, 205, 196, 0.15);
-            color: var(--accent-tertiary);
-            font-size: 0.8rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
 
-        .mc-score { text-align: center; margin-top: 16px; font-size: 0.95rem; color: var(--text-secondary); }
+        .mc-score { text-align: center; margin-top: 14px; font-size: 0.9rem; color: var(--text-secondary); }
 
-        /* Match Pairs */
+        /* Match */
         .match-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-            gap: 10px;
-            max-width: 700px;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 8px;
+            max-width: 680px;
             margin: 0 auto;
         }
 
@@ -484,138 +370,124 @@
             background: var(--bg-card);
             border: 2px solid rgba(255,255,255,0.06);
             border-radius: 12px;
-            padding: 16px 10px;
+            padding: 14px 8px;
             text-align: center;
             cursor: pointer;
             transition: var(--transition);
-            min-height: 65px;
+            min-height: 60px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1rem;
+            font-size: 0.95rem;
             user-select: none;
             flex-direction: column;
-            gap: 4px;
+            gap: 3px;
+            touch-action: manipulation;
         }
 
         .match-card:hover { border-color: var(--accent-tertiary); transform: scale(1.03); }
+        .match-card:active { transform: scale(0.96); }
         .match-card.selected { border-color: var(--accent-secondary); background: rgba(245, 166, 35, 0.15); transform: scale(1.05); }
         .match-card.matched { border-color: var(--success); background: rgba(46, 204, 113, 0.15); opacity: 0.6; pointer-events: none; }
         .match-card.wrong-match { animation: shake 0.4s ease; border-color: var(--error); }
-        .match-card .hebrew { font-size: 1.25rem; }
-        .match-card .match-audio-btn {
-            width: 22px; height: 22px;
+        .match-card .hebrew { font-size: 1.2rem; }
+
+        .match-audio-btn {
+            width: 20px; height: 20px;
             border-radius: 50%;
             border: none;
             background: rgba(78, 205, 196, 0.15);
             color: var(--accent-tertiary);
-            font-size: 0.65rem;
+            font-size: 0.6rem;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
-        /* Typing Mode */
-        .typing-question { text-align: center; margin-bottom: 24px; }
-        .typing-prompt { font-size: 1.2rem; color: var(--text-secondary); margin-bottom: 6px; }
-        .typing-hint { font-size: 1rem; color: var(--accent-secondary); }
+        /* Typing */
+        .typing-question { text-align: center; margin-bottom: 20px; }
+        .typing-prompt { font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 5px; }
+        .typing-hint { font-size: 0.95rem; color: var(--accent-secondary); }
 
-        .typing-input-container {
-            display: flex;
-            gap: 10px;
-            max-width: 400px;
-            margin: 0 auto;
-            justify-content: center;
-        }
+        .typing-input-container { display: flex; gap: 8px; max-width: 380px; margin: 0 auto; justify-content: center; }
 
         .typing-input {
             flex: 1;
-            padding: 14px 20px;
+            padding: 12px 18px;
             border-radius: 12px;
             border: 2px solid rgba(255,255,255,0.1);
             background: var(--bg-card);
             color: var(--text-primary);
-            font-size: 1.15rem;
+            font-size: 1.1rem;
             text-align: center;
             outline: none;
             transition: var(--transition);
+            -webkit-appearance: none;
         }
 
         .typing-input:focus { border-color: var(--accent-primary); }
         .typing-input.correct-input { border-color: var(--success); background: rgba(46, 204, 113, 0.1); }
         .typing-input.wrong-input { border-color: var(--error); background: rgba(231, 76, 60, 0.1); animation: shake 0.4s ease; }
 
-        .typing-feedback { text-align: center; margin-top: 14px; font-size: 0.95rem; min-height: 24px; }
+        .typing-feedback { text-align: center; margin-top: 12px; font-size: 0.9rem; min-height: 22px; }
         .typing-feedback.correct-text { color: var(--success); }
         .typing-feedback.wrong-text { color: var(--error); }
 
-        /* Audio Practice Section */
-        .audio-section {
-            max-width: 600px;
-            margin: 0 auto;
-        }
+        /* Audio Practice */
+        .audio-section { max-width: 580px; margin: 0 auto; }
 
         .audio-practice-card {
             background: var(--bg-card);
             border: 1px solid rgba(255,255,255,0.06);
             border-radius: var(--border-radius);
-            padding: 40px 30px;
+            padding: 30px 24px;
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
 
-        .audio-word-display {
-            font-size: clamp(3rem, 10vw, 5rem);
-            margin-bottom: 10px;
-        }
+        .audio-word-display { font-size: clamp(3rem, 10vw, 4.5rem); margin-bottom: 8px; }
+        .audio-translit-display { font-size: 1rem; color: var(--accent-secondary); margin-bottom: 18px; }
 
-        .audio-translit-display {
-            font-size: 1.1rem;
-            color: var(--accent-secondary);
-            margin-bottom: 20px;
-        }
-
-        .audio-buttons-row {
-            display: flex;
-            gap: 12px;
-            justify-content: center;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
+        .audio-buttons-row { display: flex; gap: 10px; justify-content: center; margin-bottom: 16px; flex-wrap: wrap; }
 
         .audio-btn-large {
-            padding: 14px 28px;
+            padding: 12px 24px;
             border-radius: 14px;
             border: 2px solid var(--accent-tertiary);
             background: rgba(78, 205, 196, 0.1);
             color: var(--accent-tertiary);
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-weight: 600;
             cursor: pointer;
             transition: var(--transition);
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
+            touch-action: manipulation;
         }
 
-        .audio-btn-large:hover {
-            background: rgba(78, 205, 196, 0.2);
-            transform: scale(1.05);
+        .audio-btn-large:hover { background: rgba(78, 205, 196, 0.2); transform: scale(1.05); }
+        .audio-btn-large:active { transform: scale(0.95); }
+        .audio-btn-large.speaking { animation: pulse 0.6s infinite; background: rgba(78, 205, 196, 0.3); }
+
+        .speed-selector { display: flex; gap: 6px; align-items: center; justify-content: center; margin-top: 10px; }
+        .speed-selector label { font-size: 0.8rem; color: var(--text-muted); }
+
+        .speed-selector select {
+            padding: 5px 10px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: var(--bg-card);
+            color: var(--text-primary);
+            font-size: 0.8rem;
         }
 
-        .audio-btn-large.speaking {
-            animation: pulse 0.6s infinite;
-            background: rgba(78, 205, 196, 0.3);
-        }
-
-        .audio-reveal-answer {
-            margin-top: 16px;
-        }
+        .audio-reveal-answer { margin-top: 14px; }
 
         .audio-answer {
-            margin-top: 16px;
-            padding: 16px;
+            margin-top: 14px;
+            padding: 14px;
             background: rgba(78, 205, 196, 0.08);
             border-radius: 12px;
             display: none;
@@ -626,297 +498,276 @@
         .audio-quiz-options {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            max-width: 500px;
-            margin: 16px auto 0;
+            gap: 8px;
+            max-width: 480px;
+            margin: 14px auto 0;
         }
 
         .audio-quiz-option {
             background: var(--bg-card);
             border: 2px solid rgba(255,255,255,0.06);
             border-radius: 12px;
-            padding: 14px;
+            padding: 12px;
             text-align: center;
             cursor: pointer;
             transition: var(--transition);
-            font-size: 1rem;
+            font-size: 0.95rem;
+            touch-action: manipulation;
         }
 
         .audio-quiz-option:hover { border-color: var(--accent-tertiary); background: var(--bg-card-hover); }
+        .audio-quiz-option:active { transform: scale(0.96); }
         .audio-quiz-option.correct { border-color: var(--success); background: rgba(46, 204, 113, 0.15); }
         .audio-quiz-option.wrong { border-color: var(--error); background: rgba(231, 76, 60, 0.15); animation: shake 0.4s ease; }
         .audio-quiz-option.disabled { pointer-events: none; opacity: 0.5; }
 
-        .audio-nav {
-            display: flex;
-            justify-content: center;
-            gap: 14px;
-            align-items: center;
-            margin-top: 16px;
+        .audio-nav { display: flex; justify-content: center; gap: 12px; align-items: center; margin-top: 14px; }
+
+        .audio-sub-modes { display: flex; gap: 8px; justify-content: center; margin-bottom: 16px; flex-wrap: wrap; }
+
+        .audio-sub-mode-btn {
+            padding: 8px 16px;
+            border-radius: 10px;
+            border: 2px solid rgba(255,255,255,0.08);
+            background: var(--bg-card);
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            touch-action: manipulation;
         }
+
+        .audio-sub-mode-btn.active { border-color: var(--accent-tertiary); color: var(--accent-tertiary); background: rgba(78, 205, 196, 0.1); }
 
         /* Study List */
-        .list-controls {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 16px;
-            flex-wrap: wrap;
-        }
+        .list-controls { display: flex; gap: 6px; margin-bottom: 14px; flex-wrap: wrap; }
 
         .filter-btn {
-            padding: 6px 14px;
+            padding: 5px 12px;
             border-radius: 20px;
             border: 1px solid rgba(255,255,255,0.1);
             background: transparent;
             color: var(--text-secondary);
-            font-size: 0.82rem;
+            font-size: 0.78rem;
             cursor: pointer;
             transition: var(--transition);
+            touch-action: manipulation;
         }
 
         .filter-btn.active { background: var(--accent-primary); color: white; border-color: var(--accent-primary); }
 
-        .vocab-list { display: grid; gap: 6px; }
+        .vocab-list { display: grid; gap: 5px; }
 
         .vocab-item {
             background: var(--bg-card);
             border: 1px solid rgba(255,255,255,0.04);
             border-radius: 12px;
-            padding: 12px 16px;
+            padding: 10px 14px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             transition: var(--transition);
-            gap: 8px;
+            gap: 6px;
         }
 
         .vocab-item:hover { background: var(--bg-card-hover); }
 
-        .vocab-hebrew { font-size: 1.4rem; min-width: 70px; text-align: center; color: var(--accent-secondary); }
-        .vocab-info { flex: 1; margin: 0 12px; }
-        .vocab-meaning { font-weight: 600; font-size: 0.95rem; }
-        .vocab-translit { color: var(--text-muted); font-size: 0.82rem; }
+        .vocab-hebrew { font-size: 1.3rem; min-width: 60px; text-align: center; color: var(--accent-secondary); }
+        .vocab-info { flex: 1; margin: 0 10px; }
+        .vocab-meaning { font-weight: 600; font-size: 0.9rem; }
+        .vocab-translit { color: var(--text-muted); font-size: 0.78rem; }
 
-        .vocab-pos-tag {
-            font-size: 0.68rem;
-            padding: 3px 8px;
-            border-radius: 20px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            white-space: nowrap;
-        }
+        .vocab-pos-tag { font-size: 0.65rem; padding: 2px 7px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; }
 
         .vocab-audio-btn {
-            width: 32px; height: 32px;
+            width: 30px; height: 30px;
             border-radius: 50%;
             border: none;
             background: rgba(78, 205, 196, 0.12);
             color: var(--accent-tertiary);
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: var(--transition);
             flex-shrink: 0;
+            touch-action: manipulation;
         }
 
         .vocab-audio-btn:hover { background: rgba(78, 205, 196, 0.25); transform: scale(1.1); }
 
-        /* Level badges */
         .level-badge {
             display: inline-block;
-            font-size: 0.65rem;
-            padding: 2px 8px;
+            font-size: 0.6rem;
+            padding: 2px 7px;
             border-radius: 10px;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+            white-space: nowrap;
         }
 
         .level-badge.easy { background: rgba(46, 204, 113, 0.15); color: var(--level-easy); }
         .level-badge.medium { background: rgba(243, 156, 18, 0.15); color: var(--level-medium); }
         .level-badge.hard { background: rgba(231, 76, 60, 0.15); color: var(--level-hard); }
 
-        /* Results Screen */
-        .results-screen { text-align: center; padding: 40px 20px; }
-        .results-icon { font-size: 4rem; margin-bottom: 16px; animation: bounceIn 0.6s ease; }
-        .results-title { font-size: 1.8rem; margin-bottom: 8px; }
+        /* Results */
+        .results-screen { text-align: center; padding: 30px 16px; }
+        .results-icon { font-size: 3.5rem; margin-bottom: 14px; animation: bounceIn 0.6s ease; }
+        .results-title { font-size: 1.6rem; margin-bottom: 6px; }
+
         .results-score {
-            font-size: 3rem;
+            font-size: 2.8rem;
             font-weight: 700;
             background: linear-gradient(135deg, var(--accent-tertiary), var(--accent-blue));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
-        .results-detail { color: var(--text-secondary); margin-bottom: 20px; }
-        .results-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
 
-        /* Confetti */
-        #confetti-canvas {
+        .results-detail { color: var(--text-secondary); margin-bottom: 18px; font-size: 0.9rem; }
+        .results-actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+
+        #confetti-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 100; }
+
+        /* Install banner */
+        .install-banner {
             position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            pointer-events: none;
-            z-index: 100;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--bg-card);
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding: 12px 20px;
+            padding-bottom: calc(12px + var(--safe-bottom));
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            z-index: 50;
+            animation: slideUp 0.3s ease;
         }
 
-        /* Sub-modes in audio section */
-        .audio-sub-modes {
+        .install-banner.visible { display: flex; }
+
+        @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+
+        .install-banner-text {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .install-banner-text strong {
+            color: var(--text-primary);
+        }
+
+        .install-banner-actions {
             display: flex;
-            gap: 10px;
-            justify-content: center;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
+            gap: 8px;
         }
 
-        .audio-sub-mode-btn {
-            padding: 10px 20px;
+        .install-btn {
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: none;
+            background: var(--accent-primary);
+            color: white;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            touch-action: manipulation;
+        }
+
+        .install-dismiss {
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: transparent;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            cursor: pointer;
+            touch-action: manipulation;
+        }
+
+        /* POS colors */
+        .pos-noun { background: rgba(78, 205, 196, 0.15); color: var(--accent-tertiary); }
+        .pos-verb { background: rgba(245, 166, 35, 0.15); color: var(--accent-secondary); }
+        .pos-adj { background: rgba(74, 144, 217, 0.15); color: var(--accent-blue); }
+        .pos-prep { background: rgba(233, 69, 96, 0.15); color: var(--accent-primary); }
+        .pos-other { background: rgba(189, 195, 199, 0.15); color: #bdc3c7; }
+
+        .search-bar {
+            width: 100%;
+            padding: 11px 18px;
             border-radius: 12px;
             border: 2px solid rgba(255,255,255,0.08);
             background: var(--bg-card);
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .audio-sub-mode-btn.active {
-            border-color: var(--accent-tertiary);
-            color: var(--accent-tertiary);
-            background: rgba(78, 205, 196, 0.1);
-        }
-
-        /* Speed selector */
-        .speed-selector {
-            display: flex;
-            gap: 8px;
-            align-items: center;
-            justify-content: center;
-            margin-top: 12px;
-        }
-
-        .speed-selector label {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-        }
-
-        .speed-selector select {
-            padding: 6px 12px;
-            border-radius: 8px;
-            border: 1px solid rgba(255,255,255,0.1);
-            background: var(--bg-card);
             color: var(--text-primary);
-            font-size: 0.85rem;
-            cursor: pointer;
+            font-size: 0.95rem;
+            outline: none;
+            transition: var(--transition);
+            margin-bottom: 12px;
+            -webkit-appearance: none;
         }
+
+        .search-bar:focus { border-color: var(--accent-tertiary); }
+        .search-bar::placeholder { color: var(--text-muted); }
+
+        .streak-display { display: flex; align-items: center; gap: 5px; font-size: 0.85rem; color: var(--accent-secondary); }
 
         /* Responsive */
         @media (max-width: 768px) {
             .app-container { padding: 12px; }
-            .header { padding: 16px 0; }
-            .mode-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
-            .mode-card { padding: 16px 12px; }
-            .mode-icon { font-size: 1.7rem; }
-            .mode-name { font-size: 0.95rem; }
-            .flashcard-container { height: 250px; }
+            .header { padding: 14px 0; }
+            .mode-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+            .mode-card { padding: 14px 10px; }
+            .mode-icon { font-size: 1.6rem; }
+            .mode-name { font-size: 0.92rem; }
+            .flashcard-container { height: 240px; }
             .mc-options { grid-template-columns: 1fr; }
             .match-grid { grid-template-columns: repeat(3, 1fr); }
-            .stats-bar { gap: 8px; }
-            .stat-item { padding: 8px 14px; min-width: 85px; }
-            .stat-value { font-size: 1.2rem; }
             .audio-quiz-options { grid-template-columns: 1fr; }
         }
 
         @media (max-width: 480px) {
             .mode-grid { grid-template-columns: 1fr; }
             .match-grid { grid-template-columns: repeat(2, 1fr); }
-            .flashcard-container { height: 230px; }
-            .level-btns { gap: 6px; }
-            .level-btn { padding: 8px 16px; font-size: 0.85rem; }
+            .flashcard-container { height: 220px; }
+            .level-btns { gap: 5px; }
+            .level-btn { padding: 7px 14px; font-size: 0.8rem; }
+            .stats-bar { gap: 6px; }
+            .stat-item { padding: 7px 12px; min-width: 70px; }
+            .stat-value { font-size: 1.1rem; }
+            .stat-label { font-size: 0.65rem; }
         }
 
-        /* Scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: var(--bg-primary); }
-        ::-webkit-scrollbar-thumb { background: var(--bg-card); border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
-
-        /* POS tag colors */
-        .pos-noun { background: rgba(78, 205, 196, 0.15); color: var(--accent-tertiary); }
-        .pos-verb { background: rgba(245, 166, 35, 0.15); color: var(--accent-secondary); }
-        .pos-adj { background: rgba(74, 144, 217, 0.15); color: var(--accent-blue); }
-        .pos-prep { background: rgba(233, 69, 96, 0.15); color: var(--accent-primary); }
-        .pos-conj { background: rgba(155, 89, 182, 0.15); color: #9b59b6; }
-        .pos-pron { background: rgba(149, 165, 166, 0.15); color: #95a5a6; }
-        .pos-adv { background: rgba(22, 160, 133, 0.15); color: #16a085; }
-        .pos-other { background: rgba(189, 195, 199, 0.15); color: #bdc3c7; }
-
-        .search-bar {
-            width: 100%;
-            padding: 12px 20px;
-            border-radius: 12px;
-            border: 2px solid rgba(255,255,255,0.08);
-            background: var(--bg-card);
-            color: var(--text-primary);
-            font-size: 1rem;
-            outline: none;
-            transition: var(--transition);
-            margin-bottom: 14px;
-        }
-
-        .search-bar:focus { border-color: var(--accent-tertiary); }
-        .search-bar::placeholder { color: var(--text-muted); }
-
-        .streak-display {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 0.9rem;
-            color: var(--accent-secondary);
-        }
-
-        /* Level info box */
-        .level-info-box {
-            background: var(--bg-card);
-            border: 1px solid rgba(255,255,255,0.06);
-            border-radius: 12px;
-            padding: 14px 20px;
-            margin-bottom: 16px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .level-info-text {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-        }
-
-        .level-info-text strong {
-            color: var(--text-primary);
-        }
-
-        .section-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 12px;
-            color: var(--text-secondary);
-            text-align: center;
-        }
+        ::-webkit-scrollbar-thumb { background: var(--bg-card); border-radius: 3px; }
     </style>
 </head>
 <body>
     <canvas id="confetti-canvas"></canvas>
+
+    <!-- Install Banner -->
+    <div class="install-banner" id="install-banner">
+        <div class="install-banner-text">
+            <strong>📲 Instalar app</strong><br>
+            Accede sin conexión y más rápido
+        </div>
+        <div class="install-banner-actions">
+            <button class="install-dismiss" onclick="dismissInstall()">Después</button>
+            <button class="install-btn" id="install-btn" onclick="installApp()">Instalar</button>
+        </div>
+    </div>
+
     <div class="app-container">
         <header class="header">
-            <h1>📜 <span class="hebrew-char">עִבְרִית</span> Vocabulario Hebreo Bíblico</h1>
-            <p>Practica 250 palabras del hebreo bíblico de forma interactiva con audio y niveles</p>
+            <h1>📜 <span class="hebrew-char">עִבְרִית</span> Hebreo Bíblico</h1>
+            <p>250 palabras · Flashcards · Audio · Juegos</p>
         </header>
 
         <div class="stats-bar">
@@ -938,89 +789,81 @@
             </div>
         </div>
 
-        <!-- Level Selection -->
         <div class="level-section" id="level-section">
-            <h3>📊 Selecciona un nivel de dificultad</h3>
+            <h3>📊 Selecciona un nivel</h3>
             <div class="level-btns">
                 <button class="level-btn easy active" onclick="selectLevel('easy')">
-                    🟢 Básico
-                    <span class="level-count">83 palabras</span>
+                    🟢 Básico <span class="level-count">83 palabras</span>
                 </button>
                 <button class="level-btn medium" onclick="selectLevel('medium')">
-                    🟡 Intermedio
-                    <span class="level-count">84 palabras</span>
+                    🟡 Intermedio <span class="level-count">84 palabras</span>
                 </button>
                 <button class="level-btn hard" onclick="selectLevel('hard')">
-                    🔴 Avanzado
-                    <span class="level-count">83 palabras</span>
+                    🔴 Avanzado <span class="level-count">83 palabras</span>
                 </button>
                 <button class="level-btn" style="border-color: var(--accent-blue);" onclick="selectLevel('all')">
-                    🌐 Todas
-                    <span class="level-count">250 palabras</span>
+                    🌐 Todas <span class="level-count">250 palabras</span>
                 </button>
             </div>
         </div>
 
-        <!-- Mode Selection -->
         <div id="mode-selection" class="mode-grid">
             <div class="mode-card" onclick="startMode('flashcards')">
                 <span class="mode-icon">🃏</span>
                 <div class="mode-name">Flashcards</div>
-                <div class="mode-desc">Voltea las tarjetas para memorizar palabras con audio</div>
+                <div class="mode-desc">Voltea tarjetas con audio</div>
             </div>
             <div class="mode-card" onclick="startMode('multiple')">
                 <span class="mode-icon">🎯</span>
                 <div class="mode-name">Selección Múltiple</div>
-                <div class="mode-desc">Elige la traducción correcta entre 4 opciones</div>
+                <div class="mode-desc">Elige la traducción correcta</div>
             </div>
             <div class="mode-card" onclick="startMode('match')">
                 <span class="mode-icon">🔗</span>
                 <div class="mode-name">Conectar Pares</div>
-                <div class="mode-desc">Une cada palabra hebrea con su significado</div>
+                <div class="mode-desc">Une hebrea con significado</div>
             </div>
             <div class="mode-card" onclick="startMode('typing')">
                 <span class="mode-icon">⌨️</span>
                 <div class="mode-name">Escribir</div>
-                <div class="mode-desc">Escribe la traducción correcta de la palabra</div>
+                <div class="mode-desc">Escribe la traducción</div>
             </div>
             <div class="mode-card" onclick="startMode('audio')">
                 <span class="mode-icon">🔊</span>
                 <div class="mode-name">Práctica con Audio</div>
-                <div class="mode-desc">Escucha y aprende la pronunciación correcta</div>
+                <div class="mode-desc">Escucha y aprende pronunciación</div>
             </div>
             <div class="mode-card" onclick="startMode('audio-quiz')">
                 <span class="mode-icon">👂</span>
                 <div class="mode-name">Quiz de Audio</div>
-                <div class="mode-desc">Escucha la palabra y selecciona el significado</div>
+                <div class="mode-desc">Escucha y selecciona el significado</div>
             </div>
             <div class="mode-card" onclick="startMode('reverse')">
                 <span class="mode-icon">🔄</span>
                 <div class="mode-name">Modo Inverso</div>
-                <div class="mode-desc">Del español al hebreo: flashcards en reversa</div>
+                <div class="mode-desc">Del español al hebreo</div>
             </div>
             <div class="mode-card" onclick="startMode('study')">
                 <span class="mode-icon">📖</span>
                 <div class="mode-name">Lista de Estudio</div>
-                <div class="mode-desc">Revisa las 250 palabras con audio por categoría</div>
+                <div class="mode-desc">Revisa las 250 palabras</div>
             </div>
         </div>
 
-        <!-- Flashcards Mode -->
+        <!-- Flashcards -->
         <div id="game-flashcards" class="game-area">
             <div class="game-header">
                 <button class="btn btn-back" onclick="goHome()">← Menú</button>
                 <span class="game-title">🃏 Flashcards</span>
                 <div class="streak-display" id="fc-streak"></div>
             </div>
-            <div class="progress-bar-container">
-                <div class="progress-bar" id="fc-progress"></div>
-            </div>
+            <div class="progress-bar-container"><div class="progress-bar" id="fc-progress"></div></div>
             <div class="flashcard-container" onclick="flipCard()">
                 <div class="flashcard" id="flashcard">
                     <div class="flashcard-front">
                         <div class="flashcard-word hebrew" id="fc-front-word"></div>
                         <div class="flashcard-translit" id="fc-front-translit"></div>
-                        <button class="btn-audio" id="fc-audio-btn" onclick="event.stopPropagation(); speakWord(state.fcWords[state.fcIndex])" title="Escuchar pronunciación">🔊</button>
+                        <button class="btn-audio" id="fc-audio-btn" onclick="event.stopPropagation(); speakWord(state.fcWords[state.fcIndex])" title="Escuchar">🔊</button>
                         <div class="flashcard-hint">Toca para voltear</div>
                     </div>
                     <div class="flashcard-back">
@@ -1037,88 +880,80 @@
                 <span class="flashcard-counter" id="fc-score-display"></span>
                 <button class="nav-btn" onclick="nextCard()">▶</button>
             </div>
-            <div style="text-align:center; margin-top:16px;">
+            <div style="text-align:center; margin-top:14px;">
                 <button class="btn btn-success" onclick="markKnown()">✓ Ya la sé</button>
-                <button class="btn btn-secondary" onclick="markUnknown()" style="margin-left:8px;">✗ Repasar</button>
+                <button class="btn btn-secondary" onclick="markUnknown()" style="margin-left:6px;">✗ Repasar</button>
             </div>
         </div>
 
-        <!-- Multiple Choice Mode -->
+        <!-- Multiple Choice -->
         <div id="game-multiple" class="game-area">
             <div class="game-header">
                 <button class="btn btn-back" onclick="goHome()">← Menú</button>
                 <span class="game-title">🎯 Selección Múltiple</span>
                 <div class="streak-display" id="mc-streak"></div>
             </div>
-            <div class="progress-bar-container">
-                <div class="progress-bar" id="mc-progress"></div>
-            </div>
+            <div class="progress-bar-container"><div class="progress-bar" id="mc-progress"></div></div>
             <div class="mc-question">
                 <div class="mc-word hebrew" id="mc-word"></div>
                 <div class="mc-translit" id="mc-translit"></div>
-                <button class="btn-audio" id="mc-audio-btn" onclick="speakWord(currentMCWord)" style="margin-top:8px;" title="Escuchar pronunciación">🔊</button>
+                <button class="btn-audio" id="mc-audio-btn" onclick="speakWord(currentMCWord)" style="margin-top:6px;">🔊</button>
             </div>
             <div class="mc-options" id="mc-options"></div>
             <div class="mc-score" id="mc-score"></div>
-            <div style="text-align:center; margin-top:14px;">
+            <div style="text-align:center; margin-top:12px;">
                 <button class="btn btn-primary" id="mc-next-btn" onclick="nextMC()" style="display:none;">Siguiente →</button>
             </div>
         </div>
 
-        <!-- Match Pairs Mode -->
+        <!-- Match -->
         <div id="game-match" class="game-area">
             <div class="game-header">
                 <button class="btn btn-back" onclick="goHome()">← Menú</button>
                 <span class="game-title">🔗 Conectar Pares</span>
                 <div class="streak-display" id="match-streak"></div>
             </div>
-            <div class="progress-bar-container">
-                <div class="progress-bar" id="match-progress"></div>
-            </div>
-            <p style="text-align:center; color: var(--text-secondary); margin-bottom: 14px; font-size: 0.9rem;">Selecciona una palabra hebrea y luego su significado</p>
+            <div class="progress-bar-container"><div class="progress-bar" id="match-progress"></div></div>
+            <p style="text-align:center; color: var(--text-secondary); margin-bottom: 12px; font-size: 0.85rem;">Selecciona una palabra hebrea y luego su significado</p>
             <div class="match-grid" id="match-grid"></div>
-            <div style="text-align:center; margin-top:14px;">
+            <div style="text-align:center; margin-top:12px;">
                 <button class="btn btn-secondary" id="match-new-btn" onclick="initMatch()" style="display:none;">Nuevo Juego</button>
             </div>
         </div>
 
-        <!-- Typing Mode -->
+        <!-- Typing -->
         <div id="game-typing" class="game-area">
             <div class="game-header">
                 <button class="btn btn-back" onclick="goHome()">← Menú</button>
                 <span class="game-title">⌨️ Escribir</span>
                 <div class="streak-display" id="tp-streak"></div>
             </div>
-            <div class="progress-bar-container">
-                <div class="progress-bar" id="tp-progress"></div>
-            </div>
+            <div class="progress-bar-container"><div class="progress-bar" id="tp-progress"></div></div>
             <div class="typing-question">
-                <div class="typing-prompt">¿Cuál es el significado de...</div>
-                <div class="typing-hint hebrew" id="tp-word" style="font-size: 2.5rem; margin: 10px 0;"></div>
+                <div class="typing-prompt">¿Cuál es el significado de...?</div>
+                <div class="typing-hint hebrew" id="tp-word" style="font-size: 2.3rem; margin: 8px 0;"></div>
                 <div class="mc-translit" id="tp-translit"></div>
-                <button class="btn-audio" onclick="speakWord(state.tpWords[state.tpIndex])" style="margin-top:8px;" title="Escuchar pronunciación">🔊</button>
+                <button class="btn-audio" onclick="speakWord(state.tpWords[state.tpIndex])" style="margin-top:6px;">🔊</button>
             </div>
             <div class="typing-input-container">
-                <input type="text" class="typing-input" id="tp-input" placeholder="Escribe en español..." autocomplete="off">
+                <input type="text" class="typing-input" id="tp-input" placeholder="Escribe en español..." autocomplete="off" autocapitalize="off">
                 <button class="btn btn-primary" onclick="checkTyping()">✓</button>
             </div>
             <div class="typing-feedback" id="tp-feedback"></div>
-            <div style="text-align:center; margin-top:14px;">
+            <div style="text-align:center; margin-top:12px;">
                 <button class="btn btn-primary" id="tp-next-btn" onclick="nextTyping()" style="display:none;">Siguiente →</button>
                 <button class="btn btn-secondary" id="tp-skip-btn" onclick="skipTyping()">Saltar</button>
             </div>
         </div>
 
-        <!-- Audio Practice Mode -->
+        <!-- Audio Practice -->
         <div id="game-audio" class="game-area">
             <div class="game-header">
                 <button class="btn btn-back" onclick="goHome()">← Menú</button>
                 <span class="game-title">🔊 Práctica con Audio</span>
                 <div class="streak-display" id="au-streak"></div>
             </div>
-            <div class="progress-bar-container">
-                <div class="progress-bar" id="au-progress"></div>
-            </div>
+            <div class="progress-bar-container"><div class="progress-bar" id="au-progress"></div></div>
             <div class="audio-section">
                 <div class="audio-sub-modes">
                     <button class="audio-sub-mode-btn active" onclick="setAudioSubMode('listen', this)">👂 Escuchar</button>
@@ -1128,12 +963,8 @@
                     <div class="audio-word-display hebrew" id="au-word"></div>
                     <div class="audio-translit-display" id="au-translit"></div>
                     <div class="audio-buttons-row">
-                        <button class="audio-btn-large" id="au-play-btn" onclick="playAudioWord()">
-                            🔊 Escuchar
-                        </button>
-                        <button class="audio-btn-large" onclick="playAudioSlow()">
-                            🐢 Lento
-                        </button>
+                        <button class="audio-btn-large" id="au-play-btn" onclick="playAudioWord()">🔊 Escuchar</button>
+                        <button class="audio-btn-large" onclick="playAudioSlow()">🐢 Lento</button>
                     </div>
                     <div class="speed-selector">
                         <label>Velocidad:</label>
@@ -1141,7 +972,7 @@
                             <option value="0.5">0.5x</option>
                             <option value="0.7">0.7x</option>
                             <option value="0.85" selected>0.85x</option>
-                            <option value="1">1x (Normal)</option>
+                            <option value="1">1x Normal</option>
                         </select>
                     </div>
                     <div class="audio-reveal-answer">
@@ -1157,49 +988,43 @@
                     <span class="flashcard-counter" id="au-counter">1 / 20</span>
                     <button class="nav-btn" onclick="nextAudio()">▶</button>
                 </div>
-                <div style="text-align:center; margin-top:14px;">
+                <div style="text-align:center; margin-top:12px;">
                     <button class="btn btn-success" onclick="markAudioKnown()">✓ Lo sé</button>
-                    <button class="btn btn-secondary" onclick="markAudioUnknown()" style="margin-left:8px;">✗ Repasar</button>
+                    <button class="btn btn-secondary" onclick="markAudioUnknown()" style="margin-left:6px;">✗ Repasar</button>
                 </div>
             </div>
         </div>
 
-        <!-- Audio Quiz Mode -->
+        <!-- Audio Quiz -->
         <div id="game-audio-quiz" class="game-area">
             <div class="game-header">
                 <button class="btn btn-back" onclick="goHome()">← Menú</button>
                 <span class="game-title">👂 Quiz de Audio</span>
                 <div class="streak-display" id="aq-streak"></div>
             </div>
-            <div class="progress-bar-container">
-                <div class="progress-bar" id="aq-progress"></div>
-            </div>
-            <div style="text-align:center; margin-bottom: 20px;">
-                <p style="color: var(--text-secondary); margin-bottom: 12px;">Escucha la palabra y selecciona el significado correcto</p>
-                <button class="audio-btn-large" id="aq-play-btn" onclick="playAudioQuizWord()" style="font-size: 1.2rem; padding: 18px 36px;">
-                    🔊 Escuchar Palabra
-                </button>
-                <div style="margin-top: 10px;">
-                    <button class="btn btn-secondary" onclick="playAudioQuizWordSlow()">🐢 Escuchar lento</button>
+            <div class="progress-bar-container"><div class="progress-bar" id="aq-progress"></div></div>
+            <div style="text-align:center; margin-bottom: 16px;">
+                <p style="color: var(--text-secondary); margin-bottom: 10px; font-size: 0.9rem;">Escucha y selecciona el significado</p>
+                <button class="audio-btn-large" id="aq-play-btn" onclick="playAudioQuizWord()" style="font-size: 1.1rem; padding: 16px 32px;">🔊 Escuchar Palabra</button>
+                <div style="margin-top: 8px;">
+                    <button class="btn btn-secondary" onclick="playAudioQuizWordSlow()">🐢 Lento</button>
                 </div>
             </div>
             <div class="audio-quiz-options" id="aq-options"></div>
             <div class="mc-score" id="aq-score"></div>
-            <div style="text-align:center; margin-top:14px;">
+            <div style="text-align:center; margin-top:12px;">
                 <button class="btn btn-primary" id="aq-next-btn" onclick="nextAudioQuiz()" style="display:none;">Siguiente →</button>
             </div>
         </div>
 
-        <!-- Reverse Flashcards Mode -->
+        <!-- Reverse -->
         <div id="game-reverse" class="game-area">
             <div class="game-header">
                 <button class="btn btn-back" onclick="goHome()">← Menú</button>
                 <span class="game-title">🔄 Modo Inverso</span>
                 <div class="streak-display" id="rv-streak"></div>
             </div>
-            <div class="progress-bar-container">
-                <div class="progress-bar" id="rv-progress"></div>
-            </div>
+            <div class="progress-bar-container"><div class="progress-bar" id="rv-progress"></div></div>
             <div class="flashcard-container" onclick="flipReverseCard()">
                 <div class="flashcard" id="reverse-card">
                     <div class="flashcard-front">
@@ -1210,7 +1035,7 @@
                     <div class="flashcard-back">
                         <div class="flashcard-word hebrew" id="rv-back-word"></div>
                         <div class="flashcard-translit" id="rv-back-translit"></div>
-                        <button class="btn-audio" onclick="event.stopPropagation(); speakWord(state.rvWords[state.rvIndex])" style="margin-top:10px;" title="Escuchar pronunciación">🔊</button>
+                        <button class="btn-audio" onclick="event.stopPropagation(); speakWord(state.rvWords[state.rvIndex])" style="margin-top:8px;">🔊</button>
                     </div>
                 </div>
             </div>
@@ -1220,24 +1045,24 @@
                 <button class="flip-btn" onclick="flipReverseCard()">↻</button>
                 <button class="nav-btn" onclick="nextReverse()">▶</button>
             </div>
-            <div style="text-align:center; margin-top:16px;">
+            <div style="text-align:center; margin-top:14px;">
                 <button class="btn btn-success" onclick="markKnownReverse()">✓ Ya la sé</button>
-                <button class="btn btn-secondary" onclick="markUnknownReverse()" style="margin-left:8px;">✗ Repasar</button>
+                <button class="btn btn-secondary" onclick="markUnknownReverse()" style="margin-left:6px;">✗ Repasar</button>
             </div>
         </div>
 
-        <!-- Study List Mode -->
+        <!-- Study -->
         <div id="game-study" class="game-area">
             <div class="game-header">
                 <button class="btn btn-back" onclick="goHome()">← Menú</button>
                 <span class="game-title">📖 Lista de Estudio</span>
             </div>
-            <input type="text" class="search-bar" id="study-search" placeholder="🔍 Buscar palabra, significado o transliteración..." oninput="filterStudy()">
+            <input type="text" class="search-bar" id="study-search" placeholder="🔍 Buscar palabra o significado..." oninput="filterStudy()">
             <div class="list-controls" id="study-filters"></div>
             <div class="vocab-list" id="vocab-list"></div>
         </div>
 
-        <!-- Results Screen -->
+        <!-- Results -->
         <div id="game-results" class="game-area">
             <div class="results-screen">
                 <div class="results-icon" id="res-icon">🎉</div>
@@ -1253,10 +1078,8 @@
     </div>
 
     <script>
-        // ==================== VOCABULARY DATA (250 words) ====================
+        // ==================== VOCABULARY (250 words) ====================
         const vocabulary = [
-            // ===== LEVEL 1: BASIC (difficulty 1) - 83 words =====
-            // Nouns - People & Family
             { id: 1, hebrew: "אָדָם", translit: "adam", meaning: "hombre, humanidad", pos: "noun", difficulty: 1 },
             { id: 2, hebrew: "אִשָּׁה", translit: "ishá", meaning: "mujer, esposa", pos: "noun", difficulty: 1 },
             { id: 3, hebrew: "בֵּן", translit: "ben", meaning: "hijo", pos: "noun", difficulty: 1 },
@@ -1267,18 +1090,16 @@
             { id: 8, hebrew: "עֶבֶד", translit: "eved", meaning: "siervo, esclavo", pos: "noun", difficulty: 1 },
             { id: 9, hebrew: "מֶלֶךְ", translit: "mélej", meaning: "rey", pos: "noun", difficulty: 1 },
             { id: 10, hebrew: "נָבִיא", translit: "naví", meaning: "profeta", pos: "noun", difficulty: 1 },
-            // Nouns - Body
             { id: 11, hebrew: "יָד", translit: "yad", meaning: "mano", pos: "noun", difficulty: 1 },
             { id: 12, hebrew: "רֹאשׁ", translit: "rosh", meaning: "cabeza", pos: "noun", difficulty: 1 },
             { id: 13, hebrew: "לֵב", translit: "lev", meaning: "corazón", pos: "noun", difficulty: 1 },
             { id: 14, hebrew: "עַיִן", translit: "áyin", meaning: "ojo", pos: "noun", difficulty: 1 },
             { id: 15, hebrew: "פֶּה", translit: "peh", meaning: "boca", pos: "noun", difficulty: 1 },
-            { id: 16, hebrew: "אֹזֶן", translit: "ozen", meaning: "oído, oreja", pos: "noun", difficulty: 1 },
+            { id: 16, hebrew: "אֹזן", translit: "ozen", meaning: "oído, oreja", pos: "noun", difficulty: 1 },
             { id: 17, hebrew: "רֶגֶל", translit: "réguél", meaning: "pie", pos: "noun", difficulty: 1 },
             { id: 18, hebrew: "דָּם", translit: "dam", meaning: "sangre", pos: "noun", difficulty: 1 },
             { id: 19, hebrew: "נֶפֶשׁ", translit: "néfesh", meaning: "alma, vida", pos: "noun", difficulty: 1 },
             { id: 20, hebrew: "רוּחַ", translit: "ruaj", meaning: "espíritu, viento", pos: "noun", difficulty: 1 },
-            // Nouns - Nature
             { id: 21, hebrew: "שֶׁמֶשׁ", translit: "shémesh", meaning: "sol", pos: "noun", difficulty: 1 },
             { id: 22, hebrew: "יָרֵחַ", translit: "yaréaj", meaning: "luna", pos: "noun", difficulty: 1 },
             { id: 23, hebrew: "כּוֹכָב", translit: "kokháv", meaning: "estrella", pos: "noun", difficulty: 1 },
@@ -1289,7 +1110,6 @@
             { id: 28, hebrew: "הַר", translit: "har", meaning: "montaña", pos: "noun", difficulty: 1 },
             { id: 29, hebrew: "יָם", translit: "yam", meaning: "mar", pos: "noun", difficulty: 1 },
             { id: 30, hebrew: "נָהָר", translit: "nahár", meaning: "río", pos: "noun", difficulty: 1 },
-            // Nouns - Animals
             { id: 31, hebrew: "סוּס", translit: "sus", meaning: "caballo", pos: "noun", difficulty: 1 },
             { id: 32, hebrew: "כֶּבֶשׂ", translit: "kéves", meaning: "cordero", pos: "noun", difficulty: 1 },
             { id: 33, hebrew: "צֹאן", translit: "tson", meaning: "ovejas, rebaño", pos: "noun", difficulty: 1 },
@@ -1300,7 +1120,6 @@
             { id: 38, hebrew: "אַרְיֵה", translit: "aryéh", meaning: "león", pos: "noun", difficulty: 1 },
             { id: 39, hebrew: "דֹּב", translit: "dov", meaning: "oso", pos: "noun", difficulty: 1 },
             { id: 40, hebrew: "שׁוֹר", translit: "shor", meaning: "toro, buey", pos: "noun", difficulty: 1 },
-            // Nouns - Religious
             { id: 41, hebrew: "אֱלֹהִים", translit: "Elohím", meaning: "Dios", pos: "noun", difficulty: 1 },
             { id: 42, hebrew: "בְּרִית", translit: "berít", meaning: "pacto, alianza", pos: "noun", difficulty: 1 },
             { id: 43, hebrew: "תּוֹרָה", translit: "Toráh", meaning: "Ley, enseñanza", pos: "noun", difficulty: 1 },
@@ -1309,7 +1128,6 @@
             { id: 46, hebrew: "קֹדֶשׁ", translit: "kódesh", meaning: "santidad, sagrado", pos: "noun", difficulty: 1 },
             { id: 47, hebrew: "חֵטְא", translit: "jet", meaning: "pecado", pos: "noun", difficulty: 1 },
             { id: 48, hebrew: "חֶסֶד", translit: "jésed", meaning: "misericordia, bondad", pos: "noun", difficulty: 1 },
-            // Nouns - Objects & Places
             { id: 49, hebrew: "סֵפֶר", translit: "séfer", meaning: "libro", pos: "noun", difficulty: 1 },
             { id: 50, hebrew: "דֶּרֶךְ", translit: "dérej", meaning: "camino", pos: "noun", difficulty: 1 },
             { id: 51, hebrew: "עִיר", translit: "ir", meaning: "ciudad", pos: "noun", difficulty: 1 },
@@ -1320,7 +1138,6 @@
             { id: 56, hebrew: "יַיִן", translit: "yáyin", meaning: "vino", pos: "noun", difficulty: 1 },
             { id: 57, hebrew: "שֶׁמֶן", translit: "shémen", meaning: "aceite", pos: "noun", difficulty: 1 },
             { id: 58, hebrew: "זָהָב", translit: "zaháv", meaning: "oro", pos: "noun", difficulty: 1 },
-            // Nouns - Abstract
             { id: 59, hebrew: "שָׁלוֹם", translit: "shalóm", meaning: "paz", pos: "noun", difficulty: 1 },
             { id: 60, hebrew: "אַהֲבָה", translit: "ahavá", meaning: "amor", pos: "noun", difficulty: 1 },
             { id: 61, hebrew: "אֱמֶת", translit: "emét", meaning: "verdad", pos: "noun", difficulty: 1 },
@@ -1330,7 +1147,6 @@
             { id: 65, hebrew: "יוֹם", translit: "yom", meaning: "día", pos: "noun", difficulty: 1 },
             { id: 66, hebrew: "לַיְלָה", translit: "láilá", meaning: "noche", pos: "noun", difficulty: 1 },
             { id: 67, hebrew: "שָׁנָה", translit: "shaná", meaning: "año", pos: "noun", difficulty: 1 },
-            // Verbs
             { id: 68, hebrew: "בָּרָא", translit: "bará", meaning: "crear", pos: "verb", difficulty: 1 },
             { id: 69, hebrew: "אָמַר", translit: "amár", meaning: "decir, hablar", pos: "verb", difficulty: 1 },
             { id: 70, hebrew: "שָׁמַע", translit: "shamá", meaning: "escuchar, obedecer", pos: "verb", difficulty: 1 },
@@ -1347,205 +1163,190 @@
             { id: 81, hebrew: "עָבַד", translit: "avád", meaning: "servir, trabajar", pos: "verb", difficulty: 1 },
             { id: 82, hebrew: "חָיָה", translit: "jayá", meaning: "vivir", pos: "verb", difficulty: 1 },
             { id: 83, hebrew: "מֵת", translit: "met", meaning: "morir", pos: "verb", difficulty: 1 },
-            // Adjectives
             { id: 84, hebrew: "טוֹב", translit: "tov", meaning: "bueno", pos: "adj", difficulty: 1 },
             { id: 85, hebrew: "רַע", translit: "ra", meaning: "malo", pos: "adj", difficulty: 1 },
             { id: 86, hebrew: "גָּדוֹל", translit: "gadól", meaning: "grande", pos: "adj", difficulty: 1 },
             { id: 87, hebrew: "קָטֹן", translit: "katón", meaning: "pequeño", pos: "adj", difficulty: 1 },
             { id: 88, hebrew: "חָדָשׁ", translit: "jadásh", meaning: "nuevo", pos: "adj", difficulty: 1 },
             { id: 89, hebrew: "יָשָׁן", translit: "yashán", meaning: "viejo, antiguo", pos: "adj", difficulty: 1 },
-            // Prepositions
             { id: 90, hebrew: "בְּ", translit: "be", meaning: "en, con", pos: "prep", difficulty: 1 },
             { id: 91, hebrew: "לְ", translit: "le", meaning: "a, para", pos: "prep", difficulty: 1 },
             { id: 92, hebrew: "מִן", translit: "min", meaning: "de, desde", pos: "prep", difficulty: 1 },
             { id: 93, hebrew: "עַל", translit: "al", meaning: "sobre, encima de", pos: "prep", difficulty: 1 },
-            // ===== LEVEL 2: INTERMEDIATE (difficulty 2) - 84 words =====
             { id: 94, hebrew: "אִישׁ", translit: "ish", meaning: "varón, hombre", pos: "noun", difficulty: 2 },
-            { id: 95, hebrew: "אָדָם", translit: "adam", meaning: "ser humano", pos: "noun", difficulty: 2 },
-            { id: 96, hebrew: "עַם", translit: "am", meaning: "pueblo, nación", pos: "noun", difficulty: 2 },
-            { id: 97, hebrew: "גּוֹי", translit: "goy", meaning: "nación, gentil", pos: "noun", difficulty: 2 },
-            { id: 98, hebrew: "מַלְאָךְ", translit: "mal'áj", meaning: "ángel, mensajero", pos: "noun", difficulty: 2 },
-            { id: 99, hebrew: "כֹּהֵן", translit: "kohén", meaning: "sacerdote", pos: "noun", difficulty: 2 },
-            { id: 100, hebrew: "שׁוֹפֵט", translit: "shofét", meaning: "juez", pos: "noun", difficulty: 2 },
-            { id: 101, hebrew: "לֹחֶם", translit: "lojém", meaning: "guerrero", pos: "noun", difficulty: 2 },
-            { id: 102, hebrew: "רֹעֶה", translit: "ro'é", meaning: "pastor", pos: "noun", difficulty: 2 },
-            { id: 103, hebrew: "אָדוֹן", translit: "adón", meaning: "señor, amo", pos: "noun", difficulty: 2 },
-            { id: 104, hebrew: "חָתָן", translit: "jatán", meaning: "novio, esposo", pos: "noun", difficulty: 2 },
-            { id: 105, hebrew: "כַּלָּה", translit: "kalá", meaning: "novia", pos: "noun", difficulty: 2 },
-            { id: 106, hebrew: "זָקֵן", translit: "zakén", meaning: "anciano, viejo", pos: "noun", difficulty: 2 },
-            { id: 107, hebrew: "יֶלֶד", translit: "yéled", meaning: "niño", pos: "noun", difficulty: 2 },
-            { id: 108, hebrew: "נַעַר", translit: "ná'ar", meaning: "joven, muchacho", pos: "noun", difficulty: 2 },
-            { id: 109, hebrew: "נַעֲרָה", translit: "na'ará", meaning: "joven, muchacha", pos: "noun", difficulty: 2 },
-            { id: 110, hebrew: "בֶּטֶן", translit: "béten", meaning: "vientre", pos: "noun", difficulty: 2 },
-            { id: 111, hebrew: "עֹצֶם", translit: "ótsem", meaning: "hueso", pos: "noun", difficulty: 2 },
-            { id: 112, hebrew: "בָּשָׂר", translit: "basár", meaning: "carne, cuerpo", pos: "noun", difficulty: 2 },
-            { id: 113, hebrew: "פָּנִים", translit: "paním", meaning: "rostro, cara", pos: "noun", difficulty: 2 },
-            { id: 114, hebrew: "אֶרֶץ", translit: "érets", meaning: "tierra, suelo", pos: "noun", difficulty: 2 },
-            { id: 115, hebrew: "גֶּשֶׁם", translit: "géshem", meaning: "lluvia", pos: "noun", difficulty: 2 },
-            { id: 116, hebrew: "רוּחַ", translit: "ruaj", meaning: "viento, aliento", pos: "noun", difficulty: 2 },
-            { id: 117, hebrew: "עָנָן", translit: "anán", meaning: "nube", pos: "noun", difficulty: 2 },
-            { id: 118, hebrew: "בֹּקֶר", translit: "bóker", meaning: "mañana", pos: "noun", difficulty: 2 },
-            { id: 119, hebrew: "עֶרֶב", translit: "érev", meaning: "tarde, noche", pos: "noun", difficulty: 2 },
-            { id: 120, hebrew: "חֹרֶף", translit: "jóref", meaning: "invierno", pos: "noun", difficulty: 2 },
-            { id: 121, hebrew: "קַיִץ", translit: "káits", meaning: "verano", pos: "noun", difficulty: 2 },
-            { id: 122, hebrew: "זַיִת", translit: "záyit", meaning: "olivo", pos: "noun", difficulty: 2 },
-            { id: 123, hebrew: "גֶּפֶן", translit: "géfen", meaning: "vid, parra", pos: "noun", difficulty: 2 },
-            { id: 124, hebrew: "חִטָּה", translit: "jitá", meaning: "trigo", pos: "noun", difficulty: 2 },
-            { id: 125, hebrew: "שְׂעֹרֶה", translit: "se'orá", meaning: "cebada", pos: "noun", difficulty: 2 },
-            { id: 126, hebrew: "תְּאֵנָה", translit: "te'ená", meaning: "higo", pos: "noun", difficulty: 2 },
-            { id: 127, hebrew: "רִמּוֹן", translit: "rimón", meaning: "granada", pos: "noun", difficulty: 2 },
-            { id: 128, hebrew: "דְּבוֹרָה", translit: "devorá", meaning: "abeja", pos: "noun", difficulty: 2 },
-            { id: 129, hebrew: "יָעֵן", translit: "yaén", meaning: "avestruz", pos: "noun", difficulty: 2 },
-            { id: 130, hebrew: "צִפּוֹר", translit: "tsipór", meaning: "avecilla", pos: "noun", difficulty: 2 },
-            { id: 131, hebrew: "נְשָׁר", translit: "neshár", meaning: "águila", pos: "noun", difficulty: 2 },
-            { id: 132, hebrew: "יָעֵל", translit: "yaél", meaning: "cabra montés", pos: "noun", difficulty: 2 },
-            { id: 133, hebrew: "צְבִי", translit: "tseví", meaning: "gacela", pos: "noun", difficulty: 2 },
-            { id: 134, hebrew: "חֲמוֹר", translit: "jamór", meaning: "asno, burro", pos: "noun", difficulty: 2 },
-            { id: 135, hebrew: "גָּמָל", translit: "gamál", meaning: "camello", pos: "noun", difficulty: 2 },
-            { id: 136, hebrew: "מִזְבֵּחַ", translit: "mizbéaj", meaning: "altar", pos: "noun", difficulty: 2 },
-            { id: 137, hebrew: "מִשְׁפָּט", translit: "mishpát", meaning: "juicio, ley", pos: "noun", difficulty: 2 },
-            { id: 138, hebrew: "תְּפִלָּה", translit: "tefilá", meaning: "oración", pos: "noun", difficulty: 2 },
-            { id: 139, hebrew: "זֶבַח", translit: "zévaj", meaning: "sacrificio", pos: "noun", difficulty: 2 },
-            { id: 140, hebrew: "עוֹלָה", translit: "olá", meaning: "holocausto", pos: "noun", difficulty: 2 },
-            { id: 141, hebrew: "קָרְבָּן", translit: "korbán", meaning: "ofrenda", pos: "noun", difficulty: 2 },
-            { id: 142, hebrew: "חֲנוּכָּה", translit: "januká", meaning: "dedicación", pos: "noun", difficulty: 2 },
-            { id: 143, hebrew: "שַׁבָּת", translit: "shabát", meaning: "sábado, descanso", pos: "noun", difficulty: 2 },
-            { id: 144, hebrew: "חֹדֶשׁ", translit: "jódesh", meaning: "mes, luna nueva", pos: "noun", difficulty: 2 },
-            { id: 145, hebrew: "מוֹעֵד", translit: "moéd", meaning: "fiesta, cita", pos: "noun", difficulty: 2 },
-            { id: 146, hebrew: "חָכְמָה", translit: "jojmá", meaning: "sabiduría", pos: "noun", difficulty: 2 },
-            { id: 147, hebrew: "דַּעַת", translit: "dá'at", meaning: "conocimiento", pos: "noun", difficulty: 2 },
-            { id: 148, hebrew: "בִּינָה", translit: "biná", meaning: "entendimiento", pos: "noun", difficulty: 2 },
-            { id: 149, hebrew: "תְּבוּנָה", translit: "tevuná", meaning: "inteligencia", pos: "noun", difficulty: 2 },
-            { id: 150, hebrew: "יִרְאָה", translit: "yir'á", meaning: "temor, reverencia", pos: "noun", difficulty: 2 },
-            { id: 151, hebrew: "תִּקְוָה", translit: "tikvá", meaning: "esperanza", pos: "noun", difficulty: 2 },
-            { id: 152, hebrew: "שִׂמְחָה", translit: "simjá", meaning: "alegría, gozo", pos: "noun", difficulty: 2 },
-            { id: 153, hebrew: "עֹז", translit: "oz", meaning: "fortaleza, poder", pos: "noun", difficulty: 2 },
-            { id: 154, hebrew: "תְּהִלָּה", translit: "tehilá", meaning: "alabanza", pos: "noun", difficulty: 2 },
-            { id: 155, hebrew: "מִשְׁכָּן", translit: "mishkán", meaning: "tabernáculo", pos: "noun", difficulty: 2 },
-            { id: 156, hebrew: "הֵיכָל", translit: "heijál", meaning: "templo, palacio", pos: "noun", difficulty: 2 },
-            { id: 157, hebrew: "מִגְדָּל", translit: "migdál", meaning: "torre", pos: "noun", difficulty: 2 },
-            { id: 158, hebrew: "חוֹמָה", translit: "jomá", meaning: "muro, pared", pos: "noun", difficulty: 2 },
-            { id: 159, hebrew: "שַׁעַר", translit: "shá'ar", meaning: "puerta, portón", pos: "noun", difficulty: 2 },
-            { id: 160, hebrew: "סוֹד", translit: "sod", meaning: "secreto, consejo", pos: "noun", difficulty: 2 },
-            { id: 161, hebrew: "מֵלִיץ", translit: "melíts", meaning: "intérprete", pos: "noun", difficulty: 2 },
-            { id: 162, hebrew: "לָקַח", translit: "lákaj", meaning: "tomar, llevar", pos: "verb", difficulty: 2 },
-            { id: 163, hebrew: "יָשַׁב", translit: "yasháv", meaning: "sentarse, habitar", pos: "verb", difficulty: 2 },
-            { id: 164, hebrew: "שׁוּב", translit: "shuv", meaning: "volver, arrepentirse", pos: "verb", difficulty: 2 },
-            { id: 165, hebrew: "בָּרַךְ", translit: "baráj", meaning: "bendecir", pos: "verb", difficulty: 2 },
-            { id: 166, hebrew: "קָדַשׁ", translit: "kadásh", meaning: "santificar", pos: "verb", difficulty: 2 },
-            { id: 167, hebrew: "עָלָה", translit: "alá", meaning: "subir, ascender", pos: "verb", difficulty: 2 },
-            { id: 168, hebrew: "יָרַד", translit: "yarád", meaning: "bajar, descender", pos: "verb", difficulty: 2 },
-            { id: 169, hebrew: "יָצָא", translit: "yatsá", meaning: "salir", pos: "verb", difficulty: 2 },
-            { id: 170, hebrew: "יָשַׁב", translit: "yasháv", meaning: "habitar, morar", pos: "verb", difficulty: 2 },
-            { id: 171, hebrew: "שָׁכַח", translit: "shajáj", meaning: "olvidar", pos: "verb", difficulty: 2 },
-            { id: 172, hebrew: "זָכַר", translit: "zajár", meaning: "recordar, acordarse", pos: "verb", difficulty: 2 },
-            { id: 173, hebrew: "בִּקֵּשׁ", translit: "bikésh", meaning: "buscar, pedir", pos: "verb", difficulty: 2 },
-            { id: 174, hebrew: "מָצָא", translit: "matsá", meaning: "encontrar, hallar", pos: "verb", difficulty: 2 },
-            { id: 175, hebrew: "עָנָה", translit: "aná", meaning: "responder, contestar", pos: "verb", difficulty: 2 },
-            { id: 176, hebrew: "דִּבֵּר", translit: "dibér", meaning: "hablar", pos: "verb", difficulty: 2 },
-            { id: 177, hebrew: "קָשַׁב", translit: "kasháv", meaning: "prestar atención", pos: "verb", difficulty: 2 },
-            { id: 178, hebrew: "חָזָק", translit: "jazák", meaning: "fuerte", pos: "adj", difficulty: 2 },
-            { id: 179, hebrew: "חָלוֹשׁ", translit: "jalósh", meaning: "débil", pos: "adj", difficulty: 2 },
-            { id: 180, hebrew: "יָפֶה", translit: "yafé", meaning: "hermoso, bello", pos: "adj", difficulty: 2 },
-            { id: 181, hebrew: "כָּבֵד", translit: "kavéd", meaning: "pesado, grave", pos: "adj", difficulty: 2 },
-            { id: 182, hebrew: "קַל", translit: "kal", meaning: "ligero, fácil", pos: "adj", difficulty: 2 },
-            // ===== LEVEL 3: ADVANCED (difficulty 3) - 83 words =====
-            { id: 183, hebrew: "אֱלִיל", translit: "elíl", meaning: "ídolo, nada", pos: "noun", difficulty: 3 },
-            { id: 184, hebrew: "תַּחְבּוּלָה", translit: "tajbulá", meaning: "astucia, estratagema", pos: "noun", difficulty: 3 },
-            { id: 185, hebrew: "הֲבֵל", translit: "hével", meaning: "vanidad, vapor", pos: "noun", difficulty: 3 },
-            { id: 186, hebrew: "צֵלֶם", translit: "tsélem", meaning: "imagen, semejanza", pos: "noun", difficulty: 3 },
-            { id: 187, hebrew: "דְּמוּת", translit: "demút", meaning: "semejanza, forma", pos: "noun", difficulty: 3 },
-            { id: 188, hebrew: "תְּהוֹם", translit: "tehom", meaning: "abismo, profundo", pos: "noun", difficulty: 3 },
-            { id: 189, hebrew: "רָקִיעַ", translit: "rakía", meaning: "firmamento, expansión", pos: "noun", difficulty: 3 },
-            { id: 190, hebrew: "מְאוֹר", translit: "meór", meaning: "lumbrera, fuente de luz", pos: "noun", difficulty: 3 },
-            { id: 191, hebrew: "מָשִׁיחַ", translit: "mashíaj", meaning: "ungido, mesías", pos: "noun", difficulty: 3 },
-            { id: 192, hebrew: "גְּאֻלָּה", translit: "geulá", meaning: "redención, rescate", pos: "noun", difficulty: 3 },
-            { id: 193, hebrew: "פְּדוּת", translit: "pedút", meaning: "redención, liberación", pos: "noun", difficulty: 3 },
-            { id: 194, hebrew: "סְלִיחָה", translit: "selijá", meaning: "perdón, indulto", pos: "noun", difficulty: 3 },
-            { id: 195, hebrew: "כַּפָּרָה", translit: "kapará", meaning: "expiación", pos: "noun", difficulty: 3 },
-            { id: 196, hebrew: "תְּשׁוּבָה", translit: "teshuvá", meaning: "arrepentimiento, retorno", pos: "noun", difficulty: 3 },
-            { id: 197, hebrew: "חֲנֻכָּה", translit: "januká", meaning: "inauguración, consagración", pos: "noun", difficulty: 3 },
-            { id: 198, hebrew: "נִסָּיוֹן", translit: "nisayón", meaning: "prueba, tentación", pos: "noun", difficulty: 3 },
-            { id: 199, hebrew: "עֲבוֹדָה", translit: "avodá", meaning: "servicio, trabajo", pos: "noun", difficulty: 3 },
-            { id: 200, hebrew: "הוֹד", translit: "hod", meaning: "majestad, esplendor", pos: "noun", difficulty: 3 },
-            { id: 201, hebrew: "הָדָר", translit: "hadár", meaning: "honor, esplendor", pos: "noun", difficulty: 3 },
-            { id: 202, hebrew: "תִּפְאֶרֶת", translit: "tiféret", meaning: "belleza, gloria", pos: "noun", difficulty: 3 },
-            { id: 203, hebrew: "כָּבוֹד", translit: "kavód", meaning: "gloria, honor", pos: "noun", difficulty: 3 },
-            { id: 204, hebrew: "גְּבוּרָה", translit: "gevurá", meaning: "poder, valentía", pos: "noun", difficulty: 3 },
-            { id: 205, hebrew: "נִצָּחוֹן", translit: "nitsajón", meaning: "victoria, eternidad", pos: "noun", difficulty: 3 },
-            { id: 206, hebrew: "יְשׁוּעָה", translit: "yeshuá", meaning: "salvación", pos: "noun", difficulty: 3 },
-            { id: 207, hebrew: "צְדָקָה", translit: "tsedaká", meaning: "justicia, caridad", pos: "noun", difficulty: 3 },
-            { id: 208, hebrew: "רַחֲמִים", translit: "rajamím", meaning: "misericordias, compasión", pos: "noun", difficulty: 3 },
-            { id: 209, hebrew: "חֶמְלָה", translit: "jemlá", meaning: "compasión, piedad", pos: "noun", difficulty: 3 },
-            { id: 210, hebrew: "אֱמוּנָה", translit: "emuná", meaning: "fe, fidelidad", pos: "noun", difficulty: 3 },
-            { id: 211, hebrew: "אֱמֶת", translit: "emét", meaning: "verdad, firmeza", pos: "noun", difficulty: 3 },
-            { id: 212, hebrew: "שֶׁקֶר", translit: "shéker", meaning: "mentira, falsedad", pos: "noun", difficulty: 3 },
-            { id: 213, hebrew: "הֶבֶל", translit: "hével", meaning: "vanidad, aliento", pos: "noun", difficulty: 3 },
-            { id: 214, hebrew: "מְצוּדָה", translit: "metsudá", meaning: "fortaleza, refugio", pos: "noun", difficulty: 3 },
-            { id: 215, hebrew: "מַחֲסֶה", translit: "majasé", meaning: "refugio, amparo", pos: "noun", difficulty: 3 },
-            { id: 216, hebrew: "מִשְׂגָּב", translit: "misgáv", meaning: "lugar alto, refugio", pos: "noun", difficulty: 3 },
-            { id: 217, hebrew: "עֶלְיוֹן", translit: "elyón", meaning: "Altísimo, supremo", pos: "adj", difficulty: 3 },
-            { id: 218, hebrew: "קַדְמוֹן", translit: "kadmón", meaning: "antiguo, eterno", pos: "adj", difficulty: 3 },
-            { id: 219, hebrew: "נִצְחִי", translit: "nitzjí", meaning: "eterno, perpetuo", pos: "adj", difficulty: 3 },
-            { id: 220, hebrew: "נֶצַח", translit: "nétsej", meaning: "eternidad, perpetuidad", pos: "noun", difficulty: 3 },
-            { id: 221, hebrew: "עוֹלָם", translit: "olám", meaning: "mundo, eternidad", pos: "noun", difficulty: 3 },
-            { id: 222, hebrew: "דּוֹר", translit: "dor", meaning: "generación", pos: "noun", difficulty: 3 },
-            { id: 223, hebrew: "אֹרַח", translit: "óraj", meaning: "camino, senda", pos: "noun", difficulty: 3 },
-            { id: 224, hebrew: "מְסִלָּה", translit: "mesilá", meaning: "calzada, camino", pos: "noun", difficulty: 3 },
-            { id: 225, hebrew: "נָתִיב", translit: "natív", meaning: "sendero, vereda", pos: "noun", difficulty: 3 },
-            { id: 226, hebrew: "יַעַר", translit: "yá'ar", meaning: "bosque, selva", pos: "noun", difficulty: 3 },
-            { id: 227, hebrew: "גַּיְא", translit: "gay", meaning: "valle", pos: "noun", difficulty: 3 },
-            { id: 228, hebrew: "מִישׁוֹר", translit: "mishór", meaning: "llanura, planicie", pos: "noun", difficulty: 3 },
-            { id: 229, hebrew: "צוּר", translit: "tsur", meaning: "roca, peñasco", pos: "noun", difficulty: 3 },
-            { id: 230, hebrew: "סֶלַע", translit: "séla", meaning: "peña, roca", pos: "noun", difficulty: 3 },
-            { id: 231, hebrew: "מָעוֹז", translit: "maóz", meaning: "fortaleza, baluarte", pos: "noun", difficulty: 3 },
-            { id: 232, hebrew: "נִיר", translit: "nir", meaning: "barbecho, tierra labrada", pos: "noun", difficulty: 3 },
-            { id: 233, hebrew: "קָצִיר", translit: "katsír", meaning: "cosecha, siega", pos: "noun", difficulty: 3 },
-            { id: 234, hebrew: "בָּצִיר", translit: "batsír", meaning: "vendimia, cosecha", pos: "noun", difficulty: 3 },
-            { id: 235, hebrew: "יְבוּל", translit: "yevúl", meaning: "producto, cosecha", pos: "noun", difficulty: 3 },
-            { id: 236, hebrew: "תְּבוּאָה", translit: "tevuá", meaning: "cosecha, fruto", pos: "noun", difficulty: 3 },
-            { id: 237, hebrew: "מְבוּכָה", translit: "mevujá", meaning: "confusión, perplejidad", pos: "noun", difficulty: 3 },
-            { id: 238, hebrew: "חִדָּה", translit: "jidá", meaning: "enigma, acertijo", pos: "noun", difficulty: 3 },
-            { id: 239, hebrew: "מָשָׁל", translit: "mashál", meaning: "proverbio, parábola", pos: "noun", difficulty: 3 },
-            { id: 240, hebrew: "חָתַם", translit: "jatám", meaning: "sellar, cerrar", pos: "verb", difficulty: 3 },
-            { id: 241, hebrew: "פָּתַח", translit: "patáj", meaning: "abrir", pos: "verb", difficulty: 3 },
-            { id: 242, hebrew: "סָגַר", translit: "sagár", meaning: "cerrar", pos: "verb", difficulty: 3 },
-            { id: 243, hebrew: "הִרְבָּה", translit: "hirbá", meaning: "multiplicar", pos: "verb", difficulty: 3 },
-            { id: 244, hebrew: "מָעַט", translit: "ma'át", meaning: "disminuir, ser poco", pos: "verb", difficulty: 3 },
-            { id: 245, hebrew: "הִשְׁפִּיל", translit: "hishpíl", meaning: "humillar, bajar", pos: "verb", difficulty: 3 },
-            { id: 246, hebrew: "רוֹמֵם", translit: "romém", meaning: "exaltar, elevar", pos: "verb", difficulty: 3 },
-            { id: 247, hebrew: "הִצְדִּיק", translit: "hitsdík", meaning: "justificar", pos: "verb", difficulty: 3 },
-            { id: 248, hebrew: "רָשָׁע", translit: "rashá", meaning: "impío, malvado", pos: "adj", difficulty: 3 },
-            { id: 249, hebrew: "צַדִּיק", translit: "tsadík", meaning: "justo, recto", pos: "adj", difficulty: 3 },
-            { id: 250, hebrew: "תָּם", translit: "tam", meaning: "íntegro, perfecto", pos: "adj", difficulty: 3 },
+            { id: 95, hebrew: "עַם", translit: "am", meaning: "pueblo, nación", pos: "noun", difficulty: 2 },
+            { id: 96, hebrew: "גּוֹי", translit: "goy", meaning: "nación, gentil", pos: "noun", difficulty: 2 },
+            { id: 97, hebrew: "מַלְאָךְ", translit: "mal'áj", meaning: "ángel, mensajero", pos: "noun", difficulty: 2 },
+            { id: 98, hebrew: "כֹּהֵן", translit: "kohén", meaning: "sacerdote", pos: "noun", difficulty: 2 },
+            { id: 99, hebrew: "שׁוֹפֵט", translit: "shofét", meaning: "juez", pos: "noun", difficulty: 2 },
+            { id: 100, hebrew: "לֹחֶם", translit: "lojém", meaning: "guerrero", pos: "noun", difficulty: 2 },
+            { id: 101, hebrew: "רֹעֶה", translit: "ro'é", meaning: "pastor", pos: "noun", difficulty: 2 },
+            { id: 102, hebrew: "אָדוֹן", translit: "adón", meaning: "señor, amo", pos: "noun", difficulty: 2 },
+            { id: 103, hebrew: "חָתָן", translit: "jatán", meaning: "novio, esposo", pos: "noun", difficulty: 2 },
+            { id: 104, hebrew: "כַּלָּה", translit: "kalá", meaning: "novia", pos: "noun", difficulty: 2 },
+            { id: 105, hebrew: "זָקֵן", translit: "zakén", meaning: "anciano, viejo", pos: "noun", difficulty: 2 },
+            { id: 106, hebrew: "יֶלֶד", translit: "yéled", meaning: "niño", pos: "noun", difficulty: 2 },
+            { id: 107, hebrew: "נַעַר", translit: "ná'ar", meaning: "joven, muchacho", pos: "noun", difficulty: 2 },
+            { id: 108, hebrew: "נַעֲרָה", translit: "na'ará", meaning: "joven, muchacha", pos: "noun", difficulty: 2 },
+            { id: 109, hebrew: "בֶּטֶן", translit: "béten", meaning: "vientre", pos: "noun", difficulty: 2 },
+            { id: 110, hebrew: "עֹצֶם", translit: "ótsem", meaning: "hueso", pos: "noun", difficulty: 2 },
+            { id: 111, hebrew: "בָּשָׂר", translit: "basár", meaning: "carne, cuerpo", pos: "noun", difficulty: 2 },
+            { id: 112, hebrew: "פָּנִים", translit: "paním", meaning: "rostro, cara", pos: "noun", difficulty: 2 },
+            { id: 113, hebrew: "גֶּשֶׁם", translit: "géshem", meaning: "lluvia", pos: "noun", difficulty: 2 },
+            { id: 114, hebrew: "עָנָן", translit: "anán", meaning: "nube", pos: "noun", difficulty: 2 },
+            { id: 115, hebrew: "בֹּקר", translit: "bóker", meaning: "mañana", pos: "noun", difficulty: 2 },
+            { id: 116, hebrew: "עֶרֶב", translit: "érev", meaning: "tarde, noche", pos: "noun", difficulty: 2 },
+            { id: 117, hebrew: "חֹרֶף", translit: "jóref", meaning: "invierno", pos: "noun", difficulty: 2 },
+            { id: 118, hebrew: "קַיִץ", translit: "káits", meaning: "verano", pos: "noun", difficulty: 2 },
+            { id: 119, hebrew: "זַיִת", translit: "záyit", meaning: "olivo", pos: "noun", difficulty: 2 },
+            { id: 120, hebrew: "גֶּפֶן", translit: "géfen", meaning: "vid, parra", pos: "noun", difficulty: 2 },
+            { id: 121, hebrew: "חִטָּה", translit: "jitá", meaning: "trigo", pos: "noun", difficulty: 2 },
+            { id: 122, hebrew: "שְׂעֹרֶה", translit: "se'orá", meaning: "cebada", pos: "noun", difficulty: 2 },
+            { id: 123, hebrew: "תְּאֵנָה", translit: "te'ená", meaning: "higo", pos: "noun", difficulty: 2 },
+            { id: 124, hebrew: "רִמּוֹן", translit: "rimón", meaning: "granada", pos: "noun", difficulty: 2 },
+            { id: 125, hebrew: "צִפּוֹר", translit: "tsipór", meaning: "avecilla", pos: "noun", difficulty: 2 },
+            { id: 126, hebrew: "נְשָׁר", translit: "neshár", meaning: "águila", pos: "noun", difficulty: 2 },
+            { id: 127, hebrew: "יָעֵל", translit: "yaél", meaning: "cabra montés", pos: "noun", difficulty: 2 },
+            { id: 128, hebrew: "צְבִי", translit: "tseví", meaning: "gacela", pos: "noun", difficulty: 2 },
+            { id: 129, hebrew: "חֲמוֹר", translit: "jamór", meaning: "asno, burro", pos: "noun", difficulty: 2 },
+            { id: 130, hebrew: "גָּמָל", translit: "gamál", meaning: "camello", pos: "noun", difficulty: 2 },
+            { id: 131, hebrew: "מִזְבֵּחַ", translit: "mizbéaj", meaning: "altar", pos: "noun", difficulty: 2 },
+            { id: 132, hebrew: "מִשְׁפָּט", translit: "mishpát", meaning: "juicio, ley", pos: "noun", difficulty: 2 },
+            { id: 133, hebrew: "תְּפִלָּה", translit: "tefilá", meaning: "oración", pos: "noun", difficulty: 2 },
+            { id: 134, hebrew: "זֶבַח", translit: "zévaj", meaning: "sacrificio", pos: "noun", difficulty: 2 },
+            { id: 135, hebrew: "עוֹלָה", translit: "olá", meaning: "holocausto", pos: "noun", difficulty: 2 },
+            { id: 136, hebrew: "קָרְבָּן", translit: "korbán", meaning: "ofrenda", pos: "noun", difficulty: 2 },
+            { id: 137, hebrew: "שַׁבָּת", translit: "shabát", meaning: "sábado, descanso", pos: "noun", difficulty: 2 },
+            { id: 138, hebrew: "חֹדֶשׁ", translit: "jódesh", meaning: "mes, luna nueva", pos: "noun", difficulty: 2 },
+            { id: 139, hebrew: "מוֹעֵד", translit: "moéd", meaning: "fiesta, cita", pos: "noun", difficulty: 2 },
+            { id: 140, hebrew: "חָכְמָה", translit: "jojmá", meaning: "sabiduría", pos: "noun", difficulty: 2 },
+            { id: 141, hebrew: "דַּעַת", translit: "dá'at", meaning: "conocimiento", pos: "noun", difficulty: 2 },
+            { id: 142, hebrew: "בִּינָה", translit: "biná", meaning: "entendimiento", pos: "noun", difficulty: 2 },
+            { id: 143, hebrew: "תְּבוּנָה", translit: "tevuná", meaning: "inteligencia", pos: "noun", difficulty: 2 },
+            { id: 144, hebrew: "יִרְאָה", translit: "yir'á", meaning: "temor, reverencia", pos: "noun", difficulty: 2 },
+            { id: 145, hebrew: "תִּקְוָה", translit: "tikvá", meaning: "esperanza", pos: "noun", difficulty: 2 },
+            { id: 146, hebrew: "שִׂמְחָה", translit: "simjá", meaning: "alegría, gozo", pos: "noun", difficulty: 2 },
+            { id: 147, hebrew: "עֹז", translit: "oz", meaning: "fortaleza, poder", pos: "noun", difficulty: 2 },
+            { id: 148, hebrew: "תְּהִלָּה", translit: "tehilá", meaning: "alabanza", pos: "noun", difficulty: 2 },
+            { id: 149, hebrew: "מִשְׁכָּן", translit: "mishkán", meaning: "tabernáculo", pos: "noun", difficulty: 2 },
+            { id: 150, hebrew: "הֵיכָל", translit: "heijál", meaning: "templo, palacio", pos: "noun", difficulty: 2 },
+            { id: 151, hebrew: "מִגְדָּל", translit: "migdál", meaning: "torre", pos: "noun", difficulty: 2 },
+            { id: 152, hebrew: "חוֹמָה", translit: "jomá", meaning: "muro, pared", pos: "noun", difficulty: 2 },
+            { id: 153, hebrew: "שַׁעַר", translit: "shá'ar", meaning: "puerta, portón", pos: "noun", difficulty: 2 },
+            { id: 154, hebrew: "סוֹד", translit: "sod", meaning: "secreto, consejo", pos: "noun", difficulty: 2 },
+            { id: 155, hebrew: "לָקַח", translit: "lákaj", meaning: "tomar, llevar", pos: "verb", difficulty: 2 },
+            { id: 156, hebrew: "יָשַׁב", translit: "yasháv", meaning: "sentarse, habitar", pos: "verb", difficulty: 2 },
+            { id: 157, hebrew: "שׁוּב", translit: "shuv", meaning: "volver, arrepentirse", pos: "verb", difficulty: 2 },
+            { id: 158, hebrew: "בָּרַךְ", translit: "baráj", meaning: "bendecir", pos: "verb", difficulty: 2 },
+            { id: 159, hebrew: "קָדַשׁ", translit: "kadásh", meaning: "santificar", pos: "verb", difficulty: 2 },
+            { id: 160, hebrew: "עָלָה", translit: "alá", meaning: "subir, ascender", pos: "verb", difficulty: 2 },
+            { id: 161, hebrew: "יָרַד", translit: "yarád", meaning: "bajar, descender", pos: "verb", difficulty: 2 },
+            { id: 162, hebrew: "יָצָא", translit: "yatsá", meaning: "salir", pos: "verb", difficulty: 2 },
+            { id: 163, hebrew: "שָׁכַח", translit: "shajáj", meaning: "olvidar", pos: "verb", difficulty: 2 },
+            { id: 164, hebrew: "זָכַר", translit: "zajár", meaning: "recordar, acordarse", pos: "verb", difficulty: 2 },
+            { id: 165, hebrew: "בִּקֵּשׁ", translit: "bikésh", meaning: "buscar, pedir", pos: "verb", difficulty: 2 },
+            { id: 166, hebrew: "מָצָא", translit: "matsá", meaning: "encontrar, hallar", pos: "verb", difficulty: 2 },
+            { id: 167, hebrew: "עָנָה", translit: "aná", meaning: "responder, contestar", pos: "verb", difficulty: 2 },
+            { id: 168, hebrew: "דִּבֵּר", translit: "dibér", meaning: "hablar", pos: "verb", difficulty: 2 },
+            { id: 169, hebrew: "קָשַׁב", translit: "kasháv", meaning: "prestar atención", pos: "verb", difficulty: 2 },
+            { id: 170, hebrew: "חָזָק", translit: "jazák", meaning: "fuerte", pos: "adj", difficulty: 2 },
+            { id: 171, hebrew: "חָלוֹשׁ", translit: "jalósh", meaning: "débil", pos: "adj", difficulty: 2 },
+            { id: 172, hebrew: "יָפֶה", translit: "yafé", meaning: "hermoso, bello", pos: "adj", difficulty: 2 },
+            { id: 173, hebrew: "כָּבֵד", translit: "kavéd", meaning: "pesado, grave", pos: "adj", difficulty: 2 },
+            { id: 174, hebrew: "קַל", translit: "kal", meaning: "ligero, fácil", pos: "adj", difficulty: 2 },
+            { id: 175, hebrew: "אֱלִיל", translit: "elíl", meaning: "ídolo, nada", pos: "noun", difficulty: 3 },
+            { id: 176, hebrew: "תַּחְבּוּלָה", translit: "tajbulá", meaning: "astucia, estratagema", pos: "noun", difficulty: 3 },
+            { id: 177, hebrew: "הֲבֵל", translit: "hével", meaning: "vanidad, vapor", pos: "noun", difficulty: 3 },
+            { id: 178, hebrew: "צֵלֶם", translit: "tsélem", meaning: "imagen, semejanza", pos: "noun", difficulty: 3 },
+            { id: 179, hebrew: "דְּמוּת", translit: "demút", meaning: "semejanza, forma", pos: "noun", difficulty: 3 },
+            { id: 180, hebrew: "תְּהוֹם", translit: "tehom", meaning: "abismo, profundo", pos: "noun", difficulty: 3 },
+            { id: 181, hebrew: "רָקִיעַ", translit: "rakía", meaning: "firmamento, expansión", pos: "noun", difficulty: 3 },
+            { id: 182, hebrew: "מְאוֹר", translit: "meór", meaning: "lumbrera, fuente de luz", pos: "noun", difficulty: 3 },
+            { id: 183, hebrew: "מָשִׁיחַ", translit: "mashíaj", meaning: "ungido, mesías", pos: "noun", difficulty: 3 },
+            { id: 184, hebrew: "גְּאֻלָּה", translit: "geulá", meaning: "redención, rescate", pos: "noun", difficulty: 3 },
+            { id: 185, hebrew: "פְּדוּת", translit: "pedút", meaning: "redención, liberación", pos: "noun", difficulty: 3 },
+            { id: 186, hebrew: "סְלִיחָה", translit: "selijá", meaning: "perdón, indulto", pos: "noun", difficulty: 3 },
+            { id: 187, hebrew: "כַּפָּרָה", translit: "kapará", meaning: "expiación", pos: "noun", difficulty: 3 },
+            { id: 188, hebrew: "תְּשׁוּבָה", translit: "teshuvá", meaning: "arrepentimiento, retorno", pos: "noun", difficulty: 3 },
+            { id: 189, hebrew: "עֲבוֹדָה", translit: "avodá", meaning: "servicio, trabajo", pos: "noun", difficulty: 3 },
+            { id: 190, hebrew: "הוֹד", translit: "hod", meaning: "majestad, esplendor", pos: "noun", difficulty: 3 },
+            { id: 191, hebrew: "הָדָר", translit: "hadár", meaning: "honor, esplendor", pos: "noun", difficulty: 3 },
+            { id: 192, hebrew: "תִּפְאֶרֶת", translit: "tiféret", meaning: "belleza, gloria", pos: "noun", difficulty: 3 },
+            { id: 193, hebrew: "כָּבוֹד", translit: "kavód", meaning: "gloria, honor", pos: "noun", difficulty: 3 },
+            { id: 194, hebrew: "גְּבוּרָה", translit: "gevurá", meaning: "poder, valentía", pos: "noun", difficulty: 3 },
+            { id: 195, hebrew: "נִצָּחוֹן", translit: "nitsajón", meaning: "victoria, eternidad", pos: "noun", difficulty: 3 },
+            { id: 196, hebrew: "יְשׁוּעָה", translit: "yeshuá", meaning: "salvación", pos: "noun", difficulty: 3 },
+            { id: 197, hebrew: "צְדָקָה", translit: "tsedaká", meaning: "justicia, caridad", pos: "noun", difficulty: 3 },
+            { id: 198, hebrew: "רַחֲמִים", translit: "rajamím", meaning: "misericordias, compasión", pos: "noun", difficulty: 3 },
+            { id: 199, hebrew: "חֶמְלָה", translit: "jemlá", meaning: "compasión, piedad", pos: "noun", difficulty: 3 },
+            { id: 200, hebrew: "אֱמוּנָה", translit: "emuná", meaning: "fe, fidelidad", pos: "noun", difficulty: 3 },
+            { id: 201, hebrew: "שֶׁקֶר", translit: "shéker", meaning: "mentira, falsedad", pos: "noun", difficulty: 3 },
+            { id: 202, hebrew: "מְצוּדָה", translit: "metsudá", meaning: "fortaleza, refugio", pos: "noun", difficulty: 3 },
+            { id: 203, hebrew: "מַחֲסֶה", translit: "majasé", meaning: "refugio, amparo", pos: "noun", difficulty: 3 },
+            { id: 204, hebrew: "עֶלְיוֹן", translit: "elyón", meaning: "Altísimo, supremo", pos: "adj", difficulty: 3 },
+            { id: 205, hebrew: "קַדְמוֹן", translit: "kadmón", meaning: "antiguo, eterno", pos: "adj", difficulty: 3 },
+            { id: 206, hebrew: "נִצְחִי", translit: "nitzjí", meaning: "eterno, perpetuo", pos: "adj", difficulty: 3 },
+            { id: 207, hebrew: "נֶצַח", translit: "nétsej", meaning: "eternidad, perpetuidad", pos: "noun", difficulty: 3 },
+            { id: 208, hebrew: "עוֹלָם", translit: "olám", meaning: "mundo, eternidad", pos: "noun", difficulty: 3 },
+            { id: 209, hebrew: "דּוֹר", translit: "dor", meaning: "generación", pos: "noun", difficulty: 3 },
+            { id: 210, hebrew: "אֹרַח", translit: "óraj", meaning: "camino, senda", pos: "noun", difficulty: 3 },
+            { id: 211, hebrew: "מְסִלָּה", translit: "mesilá", meaning: "calzada, camino", pos: "noun", difficulty: 3 },
+            { id: 212, hebrew: "יַעַר", translit: "yá'ar", meaning: "bosque, selva", pos: "noun", difficulty: 3 },
+            { id: 213, hebrew: "גַּיְא", translit: "gay", meaning: "valle", pos: "noun", difficulty: 3 },
+            { id: 214, hebrew: "מִישׁוֹר", translit: "mishór", meaning: "llanura, planicie", pos: "noun", difficulty: 3 },
+            { id: 215, hebrew: "צוּר", translit: "tsur", meaning: "roca, peñasco", pos: "noun", difficulty: 3 },
+            { id: 216, hebrew: "סֶלַע", translit: "séla", meaning: "peña, roca", pos: "noun", difficulty: 3 },
+            { id: 217, hebrew: "מָעוֹז", translit: "maóz", meaning: "fortaleza, baluarte", pos: "noun", difficulty: 3 },
+            { id: 218, hebrew: "קָצִיר", translit: "katsír", meaning: "cosecha, siega", pos: "noun", difficulty: 3 },
+            { id: 219, hebrew: "בָּצִיר", translit: "batsír", meaning: "vendimia, cosecha", pos: "noun", difficulty: 3 },
+            { id: 220, hebrew: "תְּבוּאָה", translit: "tevuá", meaning: "cosecha, fruto", pos: "noun", difficulty: 3 },
+            { id: 221, hebrew: "חִדָּה", translit: "jidá", meaning: "enigma, acertijo", pos: "noun", difficulty: 3 },
+            { id: 222, hebrew: "מָשָׁל", translit: "mashál", meaning: "proverbio, parábola", pos: "noun", difficulty: 3 },
+            { id: 223, hebrew: "חָתַם", translit: "jatám", meaning: "sellar, cerrar", pos: "verb", difficulty: 3 },
+            { id: 224, hebrew: "פָּתַח", translit: "patáj", meaning: "abrir", pos: "verb", difficulty: 3 },
+            { id: 225, hebrew: "סָגַר", translit: "sagár", meaning: "cerrar", pos: "verb", difficulty: 3 },
+            { id: 226, hebrew: "הִרְבָּה", translit: "hirbá", meaning: "multiplicar", pos: "verb", difficulty: 3 },
+            { id: 227, hebrew: "הִשְׁפִּיל", translit: "hishpíl", meaning: "humillar, bajar", pos: "verb", difficulty: 3 },
+            { id: 228, hebrew: "רוֹמֵם", translit: "romém", meaning: "exaltar, elevar", pos: "verb", difficulty: 3 },
+            { id: 229, hebrew: "הִצְדִּיק", translit: "hitsdík", meaning: "justificar", pos: "verb", difficulty: 3 },
+            { id: 230, hebrew: "רָשָׁע", translit: "rashá", meaning: "impío, malvado", pos: "adj", difficulty: 3 },
+            { id: 231, hebrew: "צַדִּיק", translit: "tsadík", meaning: "justo, recto", pos: "adj", difficulty: 3 },
+            { id: 232, hebrew: "תָּם", translit: "tam", meaning: "íntegro, perfecto", pos: "adj", difficulty: 3 },
+            { id: 233, hebrew: "נִסָּיוֹן", translit: "nisayón", meaning: "prueba, tentación", pos: "noun", difficulty: 3 },
+            { id: 234, hebrew: "נָתִיב", translit: "natív", meaning: "sendero, vereda", pos: "noun", difficulty: 3 },
+            { id: 235, hebrew: "מֵלִיץ", translit: "melíts", meaning: "intérprete", pos: "noun", difficulty: 3 },
+            { id: 236, hebrew: "יְבוּל", translit: "yevúl", meaning: "producto, cosecha", pos: "noun", difficulty: 3 },
+            { id: 237, hebrew: "מְבוּכָה", translit: "mevujá", meaning: "confusión", pos: "noun", difficulty: 3 },
+            { id: 238, hebrew: "אָדוֹן", translit: "adón", meaning: "Señor (divino)", pos: "noun", difficulty: 3 },
+            { id: 239, hebrew: "אֱדוֹנָי", translit: "Adonái", meaning: "Mi Señor (Dios)", pos: "noun", difficulty: 3 },
+            { id: 240, hebrew: "נָשִׂיא", translit: "nasí", meaning: "príncipe, líder", pos: "noun", difficulty: 3 },
+            { id: 241, hebrew: "שַׂר", translit: "sar", meaning: "príncipe, jefe", pos: "noun", difficulty: 3 },
+            { id: 242, hebrew: "גְּבוּל", translit: "gevúl", meaning: "frontera, límite", pos: "noun", difficulty: 3 },
+            { id: 243, hebrew: "מִקְדָּשׁ", translit: "mikdásh", meaning: "santuario", pos: "noun", difficulty: 3 },
+            { id: 244, hebrew: "כְּבוֹד", translit: "kevód", meaning: "honor, gloria", pos: "noun", difficulty: 3 },
+            { id: 245, hebrew: "רִנָּה", translit: "riná", meaning: "cántico, júbilo", pos: "noun", difficulty: 3 },
+            { id: 246, hebrew: "שִׁיר", translit: "shir", meaning: "canción, cántico", pos: "noun", difficulty: 3 },
+            { id: 247, hebrew: "זָמַר", translit: "zamár", meaning: "cantar, alabar", pos: "verb", difficulty: 3 },
+            { id: 248, hebrew: "הִלּל", translit: "hilél", meaning: "alabar, elogiar", pos: "verb", difficulty: 3 },
+            { id: 249, hebrew: "שָׁבַע", translit: "shavá", meaning: "jurar, saciar", pos: "verb", difficulty: 3 },
+            { id: 250, hebrew: "יָרֵא", translit: "yaré", meaning: "temer, reverenciar", pos: "verb", difficulty: 3 }
         ];
 
         // ==================== STATE ====================
         let state = {
-            currentMode: null,
-            currentLevel: 'easy',
+            currentMode: null, currentLevel: 'easy',
             knownWords: new Set(JSON.parse(localStorage.getItem('heb_known') || '[]')),
             totalCorrect: parseInt(localStorage.getItem('heb_correct') || '0'),
             totalAttempts: parseInt(localStorage.getItem('heb_attempts') || '0'),
-            streak: 0,
-            maxStreak: parseInt(localStorage.getItem('heb_maxstreak') || '0'),
-            // Flashcard
+            streak: 0, maxStreak: parseInt(localStorage.getItem('heb_maxstreak') || '0'),
             fcIndex: 0, fcWords: [], fcFlipped: false, fcCorrect: 0,
-            // Multiple choice
             mcIndex: 0, mcWords: [], mcCorrect: 0, mcAnswered: false,
-            // Match
             matchSelected: null, matchPairs: [], matchMatched: 0, matchTotal: 0, matchErrors: 0,
-            // Typing
             tpIndex: 0, tpWords: [], tpCorrect: 0, tpTotal: 0,
-            // Audio
-            auIndex: 0, auWords: [], auCorrect: 0, auSubMode: 'listen',
-            audioSpeed: 0.85,
-            // Audio Quiz
+            auIndex: 0, auWords: [], auCorrect: 0, auSubMode: 'listen', audioSpeed: 0.85,
             aqIndex: 0, aqWords: [], aqCorrect: 0, aqAnswered: false,
-            // Reverse
             rvIndex: 0, rvWords: [], rvFlipped: false, rvCorrect: 0,
-            // Study
-            studyFilter: 'all',
+            studyFilter: 'all'
         };
 
         let currentMCWord = null;
@@ -1559,11 +1360,9 @@
             utter.lang = 'he-IL';
             utter.rate = rate || state.audioSpeed;
             utter.pitch = 1;
-
             const voices = window.speechSynthesis.getVoices();
             const hebrewVoice = voices.find(v => v.lang.startsWith('he'));
             if (hebrewVoice) utter.voice = hebrewVoice;
-
             utter.onstart = () => {
                 audioSpeaking = true;
                 document.querySelectorAll('.btn-audio, .audio-btn-large').forEach(b => b.classList.add('speaking'));
@@ -1576,14 +1375,10 @@
                 audioSpeaking = false;
                 document.querySelectorAll('.btn-audio, .audio-btn-large').forEach(b => b.classList.remove('speaking'));
             };
-
             window.speechSynthesis.speak(utter);
         }
 
-        // Load voices
-        window.speechSynthesis.onvoiceschanged = () => {
-            window.speechSynthesis.getVoices();
-        };
+        window.speechSynthesis.onvoiceschanged = () => { window.speechSynthesis.getVoices(); };
 
         // ==================== UTILITY ====================
         function shuffle(arr) {
@@ -1607,36 +1402,19 @@
             const acc = state.totalAttempts > 0 ? Math.round((state.totalCorrect / state.totalAttempts) * 100) : 0;
             document.getElementById('stat-accuracy').textContent = acc + '%';
             document.getElementById('stat-streak').textContent = state.streak;
-            if (state.streak > state.maxStreak) { state.maxStreak = state.streak; }
+            if (state.streak > state.maxStreak) state.maxStreak = state.streak;
         }
 
-        function getPosClass(pos) {
-            const map = { noun: 'pos-noun', verb: 'pos-verb', adj: 'pos-adj', prep: 'pos-prep', conj: 'pos-conj', pron: 'pos-pron', adv: 'pos-adv' };
-            return map[pos] || 'pos-other';
-        }
-
-        function getPosLabel(pos) {
-            const map = { noun: 'Sustantivo', verb: 'Verbo', adj: 'Adjetivo', prep: 'Preposición', conj: 'Conjunción', pron: 'Pronombre', adv: 'Adverbio' };
-            return map[pos] || 'Otro';
-        }
-
+        function getPosClass(pos) { return { noun: 'pos-noun', verb: 'pos-verb', adj: 'pos-adj', prep: 'pos-prep' }[pos] || 'pos-other'; }
+        function getPosLabel(pos) { return { noun: 'Sust.', verb: 'Verbo', adj: 'Adj.', prep: 'Prep.' }[pos] || 'Otro'; }
         function getLevelWords(level) {
             if (level === 'all') return [...vocabulary];
             const diffMap = { easy: 1, medium: 2, hard: 3 };
             return vocabulary.filter(w => w.difficulty === diffMap[level]);
         }
-
-        function getLevelName(level) {
-            return { easy: 'Básico', medium: 'Intermedio', hard: 'Avanzado', all: 'Todas' }[level];
-        }
-
-        function getLevelBadgeClass(difficulty) {
-            return { 1: 'easy', 2: 'medium', 3: 'hard' }[difficulty];
-        }
-
-        function getLevelBadgeLabel(difficulty) {
-            return { 1: 'Básico', 2: 'Intermedio', 3: 'Avanzado' }[difficulty];
-        }
+        function getLevelName(level) { return { easy: 'Básico', medium: 'Intermedio', hard: 'Avanzado', all: 'Todas' }[level]; }
+        function getLevelBadgeClass(d) { return { 1: 'easy', 2: 'medium', 3: 'hard' }[d]; }
+        function getLevelBadgeLabel(d) { return { 1: 'Básico', 2: 'Intermedio', 3: 'Avanzado' }[d]; }
 
         // ==================== NAVIGATION ====================
         function goHome() {
@@ -1650,12 +1428,11 @@
         function selectLevel(level) {
             state.currentLevel = level;
             document.querySelectorAll('.level-btn').forEach(b => b.classList.remove('active'));
-            document.querySelector(`.level-btn.${level === 'all' ? '' : level}`)?.classList.add('active');
-            if (level === 'all') {
-                document.querySelectorAll('.level-btn').forEach(b => {
-                    if (b.textContent.includes('Todas')) b.classList.add('active');
-                });
-            }
+            const btns = document.querySelectorAll('.level-btn');
+            btns.forEach(b => {
+                if (b.textContent.includes(level === 'all' ? 'Todas' : level === 'easy' ? 'Básico' : level === 'medium' ? 'Intermedio' : 'Avanzado'))
+                    b.classList.add('active');
+            });
         }
 
         function startMode(mode) {
@@ -1664,7 +1441,6 @@
             document.getElementById('mode-selection').style.display = 'none';
             document.querySelectorAll('.game-area').forEach(g => g.classList.remove('active'));
             document.getElementById('game-' + mode).classList.add('active');
-
             switch (mode) {
                 case 'flashcards': initFlashcards(); break;
                 case 'multiple': initMultiple(); break;
@@ -1684,7 +1460,7 @@
             document.getElementById('game-results').classList.add('active');
             const pct = total > 0 ? Math.round((correct / total) * 100) : 0;
             document.getElementById('res-score').textContent = pct + '%';
-            document.getElementById('res-detail').textContent = `${correct} de ${total} correctas · Nivel: ${getLevelName(state.currentLevel)}`;
+            document.getElementById('res-detail').textContent = `${correct} de ${total} · Nivel: ${getLevelName(state.currentLevel)}`;
             if (pct >= 90) { document.getElementById('res-icon').textContent = '🏆'; document.getElementById('res-title').textContent = '¡Excelente!'; launchConfetti(); }
             else if (pct >= 70) { document.getElementById('res-icon').textContent = '🎉'; document.getElementById('res-title').textContent = '¡Muy bien!'; }
             else if (pct >= 50) { document.getElementById('res-icon').textContent = '👍'; document.getElementById('res-title').textContent = '¡Buen trabajo!'; }
@@ -1698,119 +1474,81 @@
 
         // ==================== FLASHCARDS ====================
         function initFlashcards() {
-            const pool = getLevelWords(state.currentLevel);
-            state.fcWords = shuffle(pool).slice(0, 20);
+            state.fcWords = shuffle(getLevelWords(state.currentLevel)).slice(0, 20);
             state.fcIndex = 0; state.fcFlipped = false; state.fcCorrect = 0; state.streak = 0;
-            renderFlashcard();
-            updateStreakDisplay('fc-streak');
+            renderFlashcard(); updateStreakDisplay('fc-streak');
         }
-
         function renderFlashcard() {
-            const word = state.fcWords[state.fcIndex];
-            document.getElementById('fc-front-word').textContent = word.hebrew;
-            document.getElementById('fc-front-translit').textContent = word.translit;
-            document.getElementById('fc-back-meaning').textContent = word.meaning;
-            document.getElementById('fc-back-pos').textContent = getPosLabel(word.pos);
-            document.getElementById('fc-back-translit').textContent = word.translit;
+            const w = state.fcWords[state.fcIndex];
+            document.getElementById('fc-front-word').textContent = w.hebrew;
+            document.getElementById('fc-front-translit').textContent = w.translit;
+            document.getElementById('fc-back-meaning').textContent = w.meaning;
+            document.getElementById('fc-back-pos').textContent = getPosLabel(w.pos);
+            document.getElementById('fc-back-translit').textContent = w.translit;
             document.getElementById('fc-counter').textContent = `${state.fcIndex + 1} / ${state.fcWords.length}`;
             document.getElementById('fc-progress').style.width = ((state.fcIndex + 1) / state.fcWords.length * 100) + '%';
             document.getElementById('fc-score-display').textContent = `✓ ${state.fcCorrect}`;
             document.getElementById('flashcard').classList.remove('flipped');
             state.fcFlipped = false;
         }
-
         function flipCard() { document.getElementById('flashcard').classList.toggle('flipped'); state.fcFlipped = !state.fcFlipped; }
-        function nextCard() {
-            if (state.fcIndex < state.fcWords.length - 1) { state.fcIndex++; renderFlashcard(); }
-            else { showResults(state.fcCorrect, state.fcWords.length); }
-        }
+        function nextCard() { if (state.fcIndex < state.fcWords.length - 1) { state.fcIndex++; renderFlashcard(); } else showResults(state.fcCorrect, state.fcWords.length); }
         function prevCard() { if (state.fcIndex > 0) { state.fcIndex--; renderFlashcard(); } }
-        function markKnown() {
-            state.knownWords.add(state.fcWords[state.fcIndex].id);
-            state.fcCorrect++; state.totalCorrect++; state.totalAttempts++; state.streak++;
-            saveProgress(); updateStats(); updateStreakDisplay('fc-streak');
-            nextCard();
-        }
-        function markUnknown() {
-            state.totalAttempts++; state.streak = 0;
-            saveProgress(); updateStats(); updateStreakDisplay('fc-streak');
-            nextCard();
-        }
+        function markKnown() { state.knownWords.add(state.fcWords[state.fcIndex].id); state.fcCorrect++; state.totalCorrect++; state.totalAttempts++; state.streak++; saveProgress(); updateStats(); updateStreakDisplay('fc-streak'); nextCard(); }
+        function markUnknown() { state.totalAttempts++; state.streak = 0; saveProgress(); updateStats(); updateStreakDisplay('fc-streak'); nextCard(); }
 
         // ==================== MULTIPLE CHOICE ====================
         function initMultiple() {
-            const pool = getLevelWords(state.currentLevel);
-            state.mcWords = shuffle(pool).slice(0, 20);
+            state.mcWords = shuffle(getLevelWords(state.currentLevel)).slice(0, 20);
             state.mcIndex = 0; state.mcCorrect = 0; state.mcAnswered = false; state.streak = 0;
             renderMC(); updateStreakDisplay('mc-streak');
         }
-
         function renderMC() {
-            const word = state.mcWords[state.mcIndex];
-            currentMCWord = word;
-            document.getElementById('mc-word').textContent = word.hebrew;
-            document.getElementById('mc-translit').textContent = word.translit;
+            const w = state.mcWords[state.mcIndex];
+            currentMCWord = w;
+            document.getElementById('mc-word').textContent = w.hebrew;
+            document.getElementById('mc-translit').textContent = w.translit;
             document.getElementById('mc-progress').style.width = ((state.mcIndex + 1) / state.mcWords.length * 100) + '%';
             document.getElementById('mc-score').textContent = `✓ ${state.mcCorrect} / ${state.mcIndex}`;
             document.getElementById('mc-next-btn').style.display = 'none';
             state.mcAnswered = false;
-
-            const options = [word.meaning];
-            const others = getLevelWords(state.currentLevel).filter(v => v.id !== word.id);
-            const shuffledOthers = shuffle(others);
-            for (let i = 0; i < Math.min(3, shuffledOthers.length); i++) options.push(shuffledOthers[i].meaning);
-            const finalOptions = shuffle(options);
-
-            const container = document.getElementById('mc-options');
-            container.innerHTML = '';
-            finalOptions.forEach(opt => {
+            const opts = [w.meaning];
+            const others = getLevelWords(state.currentLevel).filter(v => v.id !== w.id);
+            shuffle(others).slice(0, 3).forEach(o => opts.push(o.meaning));
+            shuffle(opts).forEach(opt => {
                 const div = document.createElement('div');
                 div.className = 'mc-option';
                 div.textContent = opt;
-                div.onclick = () => selectMC(div, opt, word.meaning);
-                container.appendChild(div);
+                div.onclick = () => selectMC(div, opt, w.meaning);
+                document.getElementById('mc-options').appendChild(div);
             });
         }
-
-        function selectMC(el, selected, correct) {
+        function selectMC(el, sel, correct) {
             if (state.mcAnswered) return;
-            state.mcAnswered = true;
-            state.totalAttempts++;
-            const allOptions = document.querySelectorAll('.mc-option');
-            if (selected === correct) {
-                el.classList.add('correct');
-                state.mcCorrect++; state.totalCorrect++; state.streak++;
-            } else {
-                el.classList.add('wrong');
-                state.streak = 0;
-                allOptions.forEach(o => { if (o.textContent === correct) o.classList.add('correct'); });
-            }
-            allOptions.forEach(o => o.classList.add('disabled'));
+            state.mcAnswered = true; state.totalAttempts++;
+            if (sel === correct) { el.classList.add('correct'); state.mcCorrect++; state.totalCorrect++; state.streak++; }
+            else { el.classList.add('wrong'); state.streak = 0; document.querySelectorAll('.mc-option').forEach(o => { if (o.textContent === correct) o.classList.add('correct'); }); }
+            document.querySelectorAll('.mc-option').forEach(o => o.classList.add('disabled'));
             saveProgress(); updateStats(); updateStreakDisplay('mc-streak');
             document.getElementById('mc-next-btn').style.display = 'inline-flex';
         }
+        function nextMC() { if (state.mcIndex < state.mcWords.length - 1) { state.mcIndex++; document.getElementById('mc-options').innerHTML = ''; renderMC(); } else showResults(state.mcCorrect, state.mcWords.length); }
 
-        function nextMC() {
-            if (state.mcIndex < state.mcWords.length - 1) { state.mcIndex++; renderMC(); }
-            else { showResults(state.mcCorrect, state.mcWords.length); }
-        }
-
-        // ==================== MATCH PAIRS ====================
+        // ==================== MATCH ====================
         function initMatch() {
             const pool = getLevelWords(state.currentLevel);
-            const pairCount = Math.min(8, Math.floor(pool.length / 2));
-            const selected = shuffle(pool).slice(0, pairCount);
+            const pc = Math.min(8, Math.floor(pool.length / 2));
+            const sel = shuffle(pool).slice(0, pc);
             state.matchPairs = []; state.matchSelected = null; state.matchMatched = 0;
-            state.matchTotal = pairCount; state.matchErrors = 0; state.streak = 0;
-            selected.forEach(word => {
-                state.matchPairs.push({ id: word.id, text: word.hebrew, type: 'hebrew', word });
-                state.matchPairs.push({ id: word.id, text: word.meaning, type: 'meaning', word });
+            state.matchTotal = pc; state.matchErrors = 0; state.streak = 0;
+            sel.forEach(w => {
+                state.matchPairs.push({ id: w.id, text: w.hebrew, type: 'hebrew', word: w });
+                state.matchPairs.push({ id: w.id, text: w.meaning, type: 'meaning', word: w });
             });
             state.matchPairs = shuffle(state.matchPairs);
             renderMatch(); updateStreakDisplay('match-streak');
             document.getElementById('match-new-btn').style.display = 'none';
         }
-
         function renderMatch() {
             const grid = document.getElementById('match-grid');
             grid.innerHTML = '';
@@ -1819,314 +1557,187 @@
                 div.className = 'match-card';
                 div.dataset.index = idx;
                 if (item.type === 'hebrew') {
-                    div.innerHTML = `<span class="hebrew">${item.text}</span><button class="match-audio-btn" onclick="event.stopPropagation(); speakWord(state.matchPairs[${idx}].word)" title="Escuchar">🔊</button>`;
-                } else {
-                    div.textContent = item.text;
-                }
+                    div.innerHTML = `<span class="hebrew">${item.text}</span><button class="match-audio-btn" onclick="event.stopPropagation(); speakWord(state.matchPairs[${idx}].word)">🔊</button>`;
+                } else { div.textContent = item.text; }
                 div.onclick = (e) => { if (e.target.tagName !== 'BUTTON') selectMatch(idx); };
                 grid.appendChild(div);
             });
             document.getElementById('match-progress').style.width = (state.matchMatched / state.matchTotal * 100) + '%';
         }
-
         function selectMatch(idx) {
             const item = state.matchPairs[idx];
             const cards = document.querySelectorAll('.match-card');
             if (cards[idx].classList.contains('matched')) return;
-
             if (!state.matchSelected) {
-                state.matchSelected = idx;
-                cards[idx].classList.add('selected');
+                state.matchSelected = idx; cards[idx].classList.add('selected');
                 if (item.type === 'hebrew') speakWord(item.word);
             } else {
-                const firstIdx = state.matchSelected;
-                const first = state.matchPairs[firstIdx];
-                if (firstIdx === idx) { cards[idx].classList.remove('selected'); state.matchSelected = null; return; }
-                if (first.type === item.type) {
-                    cards[firstIdx].classList.remove('selected');
-                    state.matchSelected = idx;
-                    cards[idx].classList.add('selected');
-                    return;
-                }
-                if (first.id === item.id) {
-                    cards[firstIdx].classList.remove('selected');
-                    cards[firstIdx].classList.add('matched');
-                    cards[idx].classList.add('matched');
+                const fi = state.matchSelected, f = state.matchPairs[fi];
+                if (fi === idx) { cards[idx].classList.remove('selected'); state.matchSelected = null; return; }
+                if (f.type === item.type) { cards[fi].classList.remove('selected'); state.matchSelected = idx; cards[idx].classList.add('selected'); return; }
+                if (f.id === item.id) {
+                    cards[fi].classList.remove('selected'); cards[fi].classList.add('matched'); cards[idx].classList.add('matched');
                     state.matchMatched++; state.streak++; state.totalCorrect++; state.totalAttempts++;
                     saveProgress(); updateStats(); updateStreakDisplay('match-streak');
                     document.getElementById('match-progress').style.width = (state.matchMatched / state.matchTotal * 100) + '%';
                     if (state.matchMatched === state.matchTotal) setTimeout(() => showResults(state.matchTotal, state.matchTotal + state.matchErrors), 500);
                 } else {
-                    cards[idx].classList.add('wrong-match');
-                    cards[firstIdx].classList.add('wrong-match');
+                    cards[idx].classList.add('wrong-match'); cards[fi].classList.add('wrong-match');
                     state.matchErrors++; state.streak = 0; state.totalAttempts++;
                     saveProgress(); updateStats(); updateStreakDisplay('match-streak');
-                    setTimeout(() => { cards[firstIdx].classList.remove('selected', 'wrong-match'); cards[idx].classList.remove('wrong-match'); }, 600);
+                    setTimeout(() => { cards[fi].classList.remove('selected', 'wrong-match'); cards[idx].classList.remove('wrong-match'); }, 600);
                 }
                 state.matchSelected = null;
             }
         }
 
-        // ==================== TYPING MODE ====================
+        // ==================== TYPING ====================
         function initTyping() {
-            const pool = getLevelWords(state.currentLevel);
-            state.tpWords = shuffle(pool).slice(0, 20);
+            state.tpWords = shuffle(getLevelWords(state.currentLevel)).slice(0, 20);
             state.tpIndex = 0; state.tpCorrect = 0; state.tpTotal = 0; state.streak = 0;
             renderTyping(); updateStreakDisplay('tp-streak');
-            document.getElementById('tp-input').onkeydown = (e) => {
-                if (e.key === 'Enter') {
-                    if (document.getElementById('tp-next-btn').style.display !== 'none') nextTyping();
-                    else checkTyping();
-                }
-            };
+            document.getElementById('tp-input').onkeydown = (e) => { if (e.key === 'Enter') { document.getElementById('tp-next-btn').style.display !== 'none' ? nextTyping() : checkTyping(); } };
         }
-
         function renderTyping() {
-            const word = state.tpWords[state.tpIndex];
-            document.getElementById('tp-word').textContent = word.hebrew;
-            document.getElementById('tp-translit').textContent = word.translit;
+            const w = state.tpWords[state.tpIndex];
+            document.getElementById('tp-word').textContent = w.hebrew;
+            document.getElementById('tp-translit').textContent = w.translit;
             document.getElementById('tp-progress').style.width = ((state.tpIndex + 1) / state.tpWords.length * 100) + '%';
             document.getElementById('tp-feedback').textContent = '';
             document.getElementById('tp-feedback').className = 'typing-feedback';
-            document.getElementById('tp-input').value = '';
-            document.getElementById('tp-input').className = 'typing-input';
-            document.getElementById('tp-input').disabled = false;
-            document.getElementById('tp-input').focus();
+            const inp = document.getElementById('tp-input');
+            inp.value = ''; inp.className = 'typing-input'; inp.disabled = false; inp.focus();
             document.getElementById('tp-next-btn').style.display = 'none';
             document.getElementById('tp-skip-btn').style.display = 'inline-flex';
         }
-
-        function normalizeText(text) { return text.toLowerCase().trim().replace(/[,;.]/g, ''); }
-
+        function normalizeText(t) { return t.toLowerCase().trim().replace(/[,;.]/g, ''); }
         function checkTyping() {
-            const word = state.tpWords[state.tpIndex];
+            const w = state.tpWords[state.tpIndex];
             const input = normalizeText(document.getElementById('tp-input').value);
-            const correct = normalizeText(word.meaning);
+            const correct = normalizeText(w.meaning);
             const fb = document.getElementById('tp-feedback');
             const inp = document.getElementById('tp-input');
             state.tpTotal++; state.totalAttempts++;
             const meanings = correct.split(',').map(m => m.trim());
             const isCorrect = meanings.some(m => input === m || (m.includes(input) && input.length > 2));
-
-            if (isCorrect) {
-                inp.classList.add('correct-input');
-                fb.textContent = '✓ ¡Correcto!';
-                fb.className = 'typing-feedback correct-text';
-                state.tpCorrect++; state.totalCorrect++; state.streak++;
-            } else {
-                inp.classList.add('wrong-input');
-                fb.textContent = `✗ Respuesta: ${word.meaning}`;
-                fb.className = 'typing-feedback wrong-text';
-                state.streak = 0;
-            }
+            if (isCorrect) { inp.classList.add('correct-input'); fb.textContent = '✓ ¡Correcto!'; fb.className = 'typing-feedback correct-text'; state.tpCorrect++; state.totalCorrect++; state.streak++; }
+            else { inp.classList.add('wrong-input'); fb.textContent = `✗ ${w.meaning}`; fb.className = 'typing-feedback wrong-text'; state.streak = 0; }
             saveProgress(); updateStats(); updateStreakDisplay('tp-streak');
-            document.getElementById('tp-input').disabled = true;
-            document.getElementById('tp-next-btn').style.display = 'inline-flex';
-            document.getElementById('tp-skip-btn').style.display = 'none';
+            inp.disabled = true; document.getElementById('tp-next-btn').style.display = 'inline-flex'; document.getElementById('tp-skip-btn').style.display = 'none';
         }
-
-        function skipTyping() {
-            const word = state.tpWords[state.tpIndex];
-            document.getElementById('tp-feedback').textContent = `→ ${word.meaning}`;
-            document.getElementById('tp-feedback').className = 'typing-feedback';
-            document.getElementById('tp-next-btn').style.display = 'inline-flex';
-            document.getElementById('tp-skip-btn').style.display = 'none';
-            state.tpTotal++; state.totalAttempts++; saveProgress();
-        }
-
-        function nextTyping() {
-            if (state.tpIndex < state.tpWords.length - 1) { state.tpIndex++; renderTyping(); }
-            else { showResults(state.tpCorrect, state.tpTotal); }
-        }
+        function skipTyping() { document.getElementById('tp-feedback').textContent = `→ ${state.tpWords[state.tpIndex].meaning}`; document.getElementById('tp-next-btn').style.display = 'inline-flex'; document.getElementById('tp-skip-btn').style.display = 'none'; state.tpTotal++; state.totalAttempts++; saveProgress(); }
+        function nextTyping() { if (state.tpIndex < state.tpWords.length - 1) { state.tpIndex++; renderTyping(); } else showResults(state.tpCorrect, state.tpTotal); }
 
         // ==================== AUDIO PRACTICE ====================
         function initAudio() {
-            const pool = getLevelWords(state.currentLevel);
-            state.auWords = shuffle(pool).slice(0, 20);
+            state.auWords = shuffle(getLevelWords(state.currentLevel)).slice(0, 20);
             state.auIndex = 0; state.auCorrect = 0; state.streak = 0;
             renderAudio(); updateStreakDisplay('au-streak');
         }
-
         function renderAudio() {
-            const word = state.auWords[state.auIndex];
-            document.getElementById('au-word').textContent = word.hebrew;
-            document.getElementById('au-translit').textContent = word.translit;
-            document.getElementById('au-meaning').textContent = word.meaning;
-            document.getElementById('au-pos').textContent = getPosLabel(word.pos);
+            const w = state.auWords[state.auIndex];
+            document.getElementById('au-word').textContent = w.hebrew;
+            document.getElementById('au-translit').textContent = w.translit;
+            document.getElementById('au-meaning').textContent = w.meaning;
+            document.getElementById('au-pos').textContent = getPosLabel(w.pos);
             document.getElementById('au-counter').textContent = `${state.auIndex + 1} / ${state.auWords.length}`;
             document.getElementById('au-progress').style.width = ((state.auIndex + 1) / state.auWords.length * 100) + '%';
             document.getElementById('au-answer').classList.remove('visible');
             document.getElementById('au-reveal-btn').style.display = 'inline-flex';
-            document.getElementById('au-play-btn').textContent = '🔊 Escuchar';
         }
-
         function playAudioWord() { speakWord(state.auWords[state.auIndex]); }
         function playAudioSlow() { speakWord(state.auWords[state.auIndex], 0.5); }
-
-        function revealAudioAnswer() {
-            document.getElementById('au-answer').classList.add('visible');
-            document.getElementById('au-reveal-btn').style.display = 'none';
-        }
-
-        function nextAudio() {
-            if (state.auIndex < state.auWords.length - 1) { state.auIndex++; renderAudio(); }
-            else { showResults(state.auCorrect, state.auWords.length); }
-        }
-
+        function revealAudioAnswer() { document.getElementById('au-answer').classList.add('visible'); document.getElementById('au-reveal-btn').style.display = 'none'; }
+        function nextAudio() { if (state.auIndex < state.auWords.length - 1) { state.auIndex++; renderAudio(); } else showResults(state.auCorrect, state.auWords.length); }
         function prevAudio() { if (state.auIndex > 0) { state.auIndex--; renderAudio(); } }
-
-        function markAudioKnown() {
-            state.knownWords.add(state.auWords[state.auIndex].id);
-            state.auCorrect++; state.totalCorrect++; state.totalAttempts++; state.streak++;
-            saveProgress(); updateStats(); updateStreakDisplay('au-streak');
-            nextAudio();
-        }
-
-        function markAudioUnknown() {
-            state.totalAttempts++; state.streak = 0;
-            saveProgress(); updateStats(); updateStreakDisplay('au-streak');
-            nextAudio();
-        }
-
-        function setAudioSubMode(mode, btn) {
-            state.auSubMode = mode;
-            document.querySelectorAll('.audio-sub-mode-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-        }
-
-        function updateSpeed() {
-            state.audioSpeed = parseFloat(document.getElementById('au-speed').value);
-        }
+        function markAudioKnown() { state.knownWords.add(state.auWords[state.auIndex].id); state.auCorrect++; state.totalCorrect++; state.totalAttempts++; state.streak++; saveProgress(); updateStats(); updateStreakDisplay('au-streak'); nextAudio(); }
+        function markAudioUnknown() { state.totalAttempts++; state.streak = 0; saveProgress(); updateStats(); updateStreakDisplay('au-streak'); nextAudio(); }
+        function setAudioSubMode(mode, btn) { state.auSubMode = mode; document.querySelectorAll('.audio-sub-mode-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); }
+        function updateSpeed() { state.audioSpeed = parseFloat(document.getElementById('au-speed').value); }
 
         // ==================== AUDIO QUIZ ====================
         function initAudioQuiz() {
-            const pool = getLevelWords(state.currentLevel);
-            state.aqWords = shuffle(pool).slice(0, 20);
+            state.aqWords = shuffle(getLevelWords(state.currentLevel)).slice(0, 20);
             state.aqIndex = 0; state.aqCorrect = 0; state.aqAnswered = false; state.streak = 0;
             renderAudioQuiz(); updateStreakDisplay('aq-streak');
         }
-
         function renderAudioQuiz() {
-            const word = state.aqWords[state.aqIndex];
+            const w = state.aqWords[state.aqIndex];
             document.getElementById('aq-progress').style.width = ((state.aqIndex + 1) / state.aqWords.length * 100) + '%';
             document.getElementById('aq-score').textContent = `✓ ${state.aqCorrect} / ${state.aqIndex}`;
             document.getElementById('aq-next-btn').style.display = 'none';
             state.aqAnswered = false;
-
-            const options = [word.meaning];
-            const others = getLevelWords(state.currentLevel).filter(v => v.id !== word.id);
-            const shuffledOthers = shuffle(others);
-            for (let i = 0; i < Math.min(3, shuffledOthers.length); i++) options.push(shuffledOthers[i].meaning);
-            const finalOptions = shuffle(options);
-
+            const opts = [w.meaning];
+            const others = getLevelWords(state.currentLevel).filter(v => v.id !== w.id);
+            shuffle(others).slice(0, 3).forEach(o => opts.push(o.meaning));
             const container = document.getElementById('aq-options');
             container.innerHTML = '';
-            finalOptions.forEach(opt => {
+            shuffle(opts).forEach(opt => {
                 const div = document.createElement('div');
                 div.className = 'audio-quiz-option';
                 div.textContent = opt;
-                div.onclick = () => selectAudioQuiz(div, opt, word.meaning);
+                div.onclick = () => selectAudioQuiz(div, opt, w.meaning);
                 container.appendChild(div);
             });
-
-            // Auto play
             setTimeout(() => playAudioQuizWord(), 300);
         }
-
-        function playAudioQuizWord() {
-            speakWord(state.aqWords[state.aqIndex]);
-        }
-
-        function playAudioQuizWordSlow() {
-            speakWord(state.aqWords[state.aqIndex], 0.5);
-        }
-
-        function selectAudioQuiz(el, selected, correct) {
+        function playAudioQuizWord() { speakWord(state.aqWords[state.aqIndex]); }
+        function playAudioQuizWordSlow() { speakWord(state.aqWords[state.aqIndex], 0.5); }
+        function selectAudioQuiz(el, sel, correct) {
             if (state.aqAnswered) return;
-            state.aqAnswered = true;
-            state.totalAttempts++;
-            const allOptions = document.querySelectorAll('.audio-quiz-option');
-            if (selected === correct) {
-                el.classList.add('correct');
-                state.aqCorrect++; state.totalCorrect++; state.streak++;
-            } else {
-                el.classList.add('wrong');
-                state.streak = 0;
-                allOptions.forEach(o => { if (o.textContent === correct) o.classList.add('correct'); });
-            }
-            allOptions.forEach(o => o.classList.add('disabled'));
+            state.aqAnswered = true; state.totalAttempts++;
+            if (sel === correct) { el.classList.add('correct'); state.aqCorrect++; state.totalCorrect++; state.streak++; }
+            else { el.classList.add('wrong'); state.streak = 0; document.querySelectorAll('.audio-quiz-option').forEach(o => { if (o.textContent === correct) o.classList.add('correct'); }); }
+            document.querySelectorAll('.audio-quiz-option').forEach(o => o.classList.add('disabled'));
             saveProgress(); updateStats(); updateStreakDisplay('aq-streak');
             document.getElementById('aq-next-btn').style.display = 'inline-flex';
         }
+        function nextAudioQuiz() { if (state.aqIndex < state.aqWords.length - 1) { state.aqIndex++; renderAudioQuiz(); } else showResults(state.aqCorrect, state.aqWords.length); }
 
-        function nextAudioQuiz() {
-            if (state.aqIndex < state.aqWords.length - 1) { state.aqIndex++; renderAudioQuiz(); }
-            else { showResults(state.aqCorrect, state.aqWords.length); }
-        }
-
-        // ==================== REVERSE FLASHCARDS ====================
+        // ==================== REVERSE ====================
         function initReverse() {
-            const pool = getLevelWords(state.currentLevel);
-            state.rvWords = shuffle(pool).slice(0, 20);
+            state.rvWords = shuffle(getLevelWords(state.currentLevel)).slice(0, 20);
             state.rvIndex = 0; state.rvFlipped = false; state.rvCorrect = 0; state.streak = 0;
             renderReverse(); updateStreakDisplay('rv-streak');
         }
-
         function renderReverse() {
-            const word = state.rvWords[state.rvIndex];
-            document.getElementById('rv-front-meaning').textContent = word.meaning;
-            document.getElementById('rv-front-pos').textContent = getPosLabel(word.pos);
-            document.getElementById('rv-back-word').textContent = word.hebrew;
-            document.getElementById('rv-back-translit').textContent = word.translit;
+            const w = state.rvWords[state.rvIndex];
+            document.getElementById('rv-front-meaning').textContent = w.meaning;
+            document.getElementById('rv-front-pos').textContent = getPosLabel(w.pos);
+            document.getElementById('rv-back-word').textContent = w.hebrew;
+            document.getElementById('rv-back-translit').textContent = w.translit;
             document.getElementById('rv-counter').textContent = `${state.rvIndex + 1} / ${state.rvWords.length}`;
             document.getElementById('rv-progress').style.width = ((state.rvIndex + 1) / state.rvWords.length * 100) + '%';
             document.getElementById('reverse-card').classList.remove('flipped');
             state.rvFlipped = false;
         }
-
         function flipReverseCard() { document.getElementById('reverse-card').classList.toggle('flipped'); state.rvFlipped = !state.rvFlipped; }
-        function nextReverse() {
-            if (state.rvIndex < state.rvWords.length - 1) { state.rvIndex++; renderReverse(); }
-            else { showResults(state.rvCorrect, state.rvWords.length); }
-        }
+        function nextReverse() { if (state.rvIndex < state.rvWords.length - 1) { state.rvIndex++; renderReverse(); } else showResults(state.rvCorrect, state.rvWords.length); }
         function prevReverse() { if (state.rvIndex > 0) { state.rvIndex--; renderReverse(); } }
-        function markKnownReverse() {
-            state.knownWords.add(state.rvWords[state.rvIndex].id);
-            state.rvCorrect++; state.totalCorrect++; state.totalAttempts++; state.streak++;
-            saveProgress(); updateStats(); updateStreakDisplay('rv-streak');
-            nextReverse();
-        }
-        function markUnknownReverse() {
-            state.totalAttempts++; state.streak = 0;
-            saveProgress(); updateStats(); updateStreakDisplay('rv-streak');
-            nextReverse();
-        }
+        function markKnownReverse() { state.knownWords.add(state.rvWords[state.rvIndex].id); state.rvCorrect++; state.totalCorrect++; state.totalAttempts++; state.streak++; saveProgress(); updateStats(); updateStreakDisplay('rv-streak'); nextReverse(); }
+        function markUnknownReverse() { state.totalAttempts++; state.streak = 0; saveProgress(); updateStats(); updateStreakDisplay('rv-streak'); nextReverse(); }
 
-        // ==================== STUDY LIST ====================
+        // ==================== STUDY ====================
         function initStudy() {
             const filters = document.getElementById('study-filters');
             filters.innerHTML = '';
-            const categories = ['all', 'noun', 'verb', 'adj', 'prep'];
-            const labels = { all: 'Todas', noun: 'Sustantivos', verb: 'Verbos', adj: 'Adjetivos', prep: 'Preposiciones' };
-            categories.forEach(cat => {
+            ['all', 'noun', 'verb', 'adj', 'prep'].forEach(cat => {
                 const btn = document.createElement('button');
                 btn.className = 'filter-btn' + (state.studyFilter === cat ? ' active' : '');
-                btn.textContent = labels[cat];
+                btn.textContent = { all: 'Todas', noun: 'Sustantivos', verb: 'Verbos', adj: 'Adjetivos', prep: 'Preposiciones' }[cat];
                 btn.onclick = () => { state.studyFilter = cat; filterStudy(); };
                 filters.appendChild(btn);
             });
             filterStudy();
         }
-
         function filterStudy() {
             const search = document.getElementById('study-search').value.toLowerCase();
             const pool = getLevelWords(state.currentLevel);
             const filtered = pool.filter(w => {
-                const matchCat = state.studyFilter === 'all' || w.pos === state.studyFilter;
-                const matchSearch = !search || w.meaning.toLowerCase().includes(search) || w.hebrew.includes(search) || w.translit.toLowerCase().includes(search);
-                return matchCat && matchSearch;
+                const mc = state.studyFilter === 'all' || w.pos === state.studyFilter;
+                const ms = !search || w.meaning.toLowerCase().includes(search) || w.hebrew.includes(search) || w.translit.toLowerCase().includes(search);
+                return mc && ms;
             });
-
             const list = document.getElementById('vocab-list');
             list.innerHTML = '';
             filtered.forEach(w => {
@@ -2136,21 +1747,11 @@
                 div.style.opacity = known ? '0.7' : '1';
                 div.innerHTML = `
                     <div class="vocab-hebrew hebrew">${w.hebrew}</div>
-                    <div class="vocab-info">
-                        <div class="vocab-meaning">${w.meaning}</div>
-                        <div class="vocab-translit">${w.translit}</div>
-                    </div>
+                    <div class="vocab-info"><div class="vocab-meaning">${w.meaning}</div><div class="vocab-translit">${w.translit}</div></div>
                     <span class="vocab-pos-tag ${getPosClass(w.pos)}">${getPosLabel(w.pos)}</span>
                     <span class="level-badge ${getLevelBadgeClass(w.difficulty)}">${getLevelBadgeLabel(w.difficulty)}</span>
-                    <button class="vocab-audio-btn" onclick="speakWord(vocabulary.find(v=>v.id===${w.id}))" title="Escuchar">🔊</button>
-                `;
-                div.onclick = (e) => {
-                    if (e.target.tagName === 'BUTTON') return;
-                    if (known) state.knownWords.delete(w.id);
-                    else state.knownWords.add(w.id);
-                    saveProgress(); updateStats();
-                    div.style.opacity = state.knownWords.has(w.id) ? '0.7' : '1';
-                };
+                    <button class="vocab-audio-btn" onclick="event.stopPropagation(); speakWord(vocabulary.find(v=>v.id===${w.id}))">🔊</button>`;
+                div.onclick = (e) => { if (e.target.tagName === 'BUTTON') return; if (state.knownWords.has(w.id)) state.knownWords.delete(w.id); else state.knownWords.add(w.id); saveProgress(); updateStats(); div.style.opacity = state.knownWords.has(w.id) ? '0.7' : '1'; };
                 list.appendChild(div);
             });
         }
@@ -2159,44 +1760,51 @@
         function launchConfetti() {
             const canvas = document.getElementById('confetti-canvas');
             const ctx = canvas.getContext('2d');
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+            canvas.width = window.innerWidth; canvas.height = window.innerHeight;
             const pieces = [];
-            const colors = ['#e94560', '#f5a623', '#4ecdc4', '#4a90d9', '#2ecc71', '#9b59b6', '#e74c3c'];
-            for (let i = 0; i < 150; i++) {
-                pieces.push({
-                    x: Math.random() * canvas.width,
-                    y: Math.random() * canvas.height - canvas.height,
-                    w: Math.random() * 10 + 5,
-                    h: Math.random() * 6 + 3,
-                    color: colors[Math.floor(Math.random() * colors.length)],
-                    vy: Math.random() * 3 + 2,
-                    vx: Math.random() * 2 - 1,
-                    rot: Math.random() * 360,
-                    rotSpeed: Math.random() * 6 - 3,
-                    opacity: 1
-                });
-            }
+            const colors = ['#e94560', '#f5a623', '#4ecdc4', '#4a90d9', '#2ecc71', '#9b59b6'];
+            for (let i = 0; i < 120; i++) pieces.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height - canvas.height, w: Math.random() * 10 + 5, h: Math.random() * 6 + 3, color: colors[Math.floor(Math.random() * colors.length)], vy: Math.random() * 3 + 2, vx: Math.random() * 2 - 1, rot: Math.random() * 360, rotSpeed: Math.random() * 6 - 3, opacity: 1 });
             let frame = 0;
             function animate() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                frame++;
-                pieces.forEach(p => {
-                    p.y += p.vy; p.x += p.vx; p.rot += p.rotSpeed;
-                    if (frame > 60) p.opacity -= 0.01;
-                    ctx.save();
-                    ctx.translate(p.x, p.y);
-                    ctx.rotate(p.rot * Math.PI / 180);
-                    ctx.globalAlpha = Math.max(0, p.opacity);
-                    ctx.fillStyle = p.color;
-                    ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
-                    ctx.restore();
-                });
-                if (frame < 200) requestAnimationFrame(animate);
-                else ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.clearRect(0, 0, canvas.width, canvas.height); frame++;
+                pieces.forEach(p => { p.y += p.vy; p.x += p.vx; p.rot += p.rotSpeed; if (frame > 60) p.opacity -= 0.01; ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.rot * Math.PI / 180); ctx.globalAlpha = Math.max(0, p.opacity); ctx.fillStyle = p.color; ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h); ctx.restore(); });
+                if (frame < 200) requestAnimationFrame(animate); else ctx.clearRect(0, 0, canvas.width, canvas.height);
             }
             animate();
         }
+
+        // ==================== PWA INSTALL ====================
+        let deferredPrompt = null;
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            document.getElementById('install-banner').classList.add('visible');
+        });
+
+        function installApp() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((result) => {
+                    if (result.outcome === 'accepted') {
+                        document.getElementById('install-banner').classList.remove('visible');
+                    }
+                    deferredPrompt = null;
+                });
+            } else {
+                // iOS instructions
+                alert('Para instalar en iPhone/iPad:\n1. Toca el botón "Compartir" (cuadrado con flecha)\n2. Selecciona "Añadir a pantalla de inicio"');
+            }
+        }
+
+        function dismissInstall() {
+            document.getElementById('install-banner').classList.remove('visible');
+        }
+
+        window.addEventListener('appinstalled', () => {
+            document.getElementById('install-banner').classList.remove('visible');
+            deferredPrompt = null;
+        });
 
         // ==================== INIT ====================
         updateStats();

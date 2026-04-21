@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía de Objetivos - Curso de Hebreo Bíblico | Vivos para Servir</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Roboto+Slab:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="https://i.postimg.cc/wMJ2bCgV/mas-logos.jpg">
+    <style>
+        :root {
+            --primary: #4E6FA5;
+            --primary-dark: #3D5A8C;
+            --secondary: #8B5FBF;
+            --accent: #E8A87C;
+            --success: #2ECC71;
+            --warning: #F39C12;
+            --danger: #E74C3C;
+            --info: #3498DB;
+            --dark: #2C3E50;
+            --light: #ECF0F1;
+            --gray: #95A5A6;
+            --gray-light: #BDC3C7;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15);
+            --shadow-glow: 0 0 20px rgba(78, 111, 165, 0.3);
+            --radius: 12px;
+            --radius-lg: 20px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        /* Header Principal */
+        .main-header {
+            background: linear-gradient(135deg, rgba(44, 62, 80, 0.95) 0%, rgba(78, 111, 165, 0.95) 100%);
+            padding: 60px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .main-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(-30%, -30%); }
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo-container {
+            margin-bottom: 25px;
+        }
+
+        .logo-main {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 4px solid white;
+            box-shadow: var(--shadow-glow);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 20px rgba(78, 111, 165, 0.3); }
+            50% { transform: scale(1.05); box-shadow: 0 0 30px rgba(78, 111, 165, 0.5); }
+        }
+
+        .main-header h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .main-header .subtitle {
+            font-size: 1.4rem;
+            color: var(--accent);
+            font-weight: 500;
+            margin-bottom: 20px;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        .main-header .description {
+            font-size: 1.1rem;
+            color: var(--light);
+            max-width: 800px;
+            margin: 0 auto;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+
+        /* Contenedor Principal */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Grid de Semanas */
+        .weeks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        /* Tarjeta de Semana */
+        .week-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            animation: fadeInUp 0.8s ease-out both;
+        }
+
+        .week-card:nth-child(1) { animation-delay: 0.1s; }
+        .week-card:nth-child(2) { animation-delay: 0.2s; }
+        .week-card:nth-child(3) { animation-delay: 0.3s; }
+        .week-card:nth-child(4) { animation-delay: 0.4s; }
+        .week-card:nth-child(5) { animation-delay: 0.5s; }
+        .week-card:nth-child(6) { animation-delay: 0.6s; }
+        .week-card:nth-child(7) { animation-delay: 0.7s; }
+        .week-card:nth-child(8) { animation-delay: 0.8s; }
+        .week-card:nth-child(9) { animation-delay: 0.9s; }
+        .week-card:nth-child(10) { animation-delay: 1.0s; }
+
+        .week-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2), var(--shadow-glow);
+        }
+
+        .week-header {
+            padding: 25px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .week-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+        }
+
+        .week-number {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 4rem;
+            font-weight: 800;
+            opacity: 0.2;
+        }
+
+        .week-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .week-subtitle {
+            font-size: 0.95rem;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Colores por semana */
+        .week-1 .week-header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .week-2 .week-header { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+        .week-3 .week-header { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+        .week-4 .week-header { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
+        .week-5 .week-header { background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); }
+        .week-6 .week-header { background: linear-gradient(135deg, #30cfd0 0%, #330867 100%); }
+        .week-7 .week-header { background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); }
+        .week-8 .week-header { background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%); }
+        .week-9 .week-header { background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%); }
+        .week-10 .week-header { background: linear-gradient(135deg, #ff6e7f 0%, #bfe9ff 100%); }
+
+        .week-content {
+            padding: 25px;
+        }
+
+        .objectives-title {
+            font-size: 1.2rem;
+            color: var(--primary-dark);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+        }
+
+        .objectives-list {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+
+        .objectives-list li {
+            padding: 10px 0;
+            padding-left: 30px;
+            position: relative;
+            border-bottom: 1px dashed var(--gray-light);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .objectives-list li:last-child {
+            border-bottom: none;
+        }
+
+        .objectives-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            top: 10px;
+            width: 22px;
+            height: 22px;
+            background: var(--success);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .topics-section {
+            background: linear-gradient(135deg, rgba(78, 111, 165, 0.05) 0%, rgba(139, 95, 191, 0.05) 100%);
+            padding: 15px;
+            border-radius: var(--radius);
+            margin-bottom: 20px;
+        }
+
+        .topics-title {
+            font-size: 1rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .topics-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .topic-tag {
+            background: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: var(--primary-dark);
+            border: 1px solid var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .topic-tag:hover {
+            background: var(--primary);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .games-section {
+            background: linear-gradient(135deg, rgba(46, 204, 113, 0.05) 0%, rgba(52, 152, 219, 0.05) 100%);
+            padding: 15px;
+            border-radius: var(--radius);
+            border-left: 4px solid var(--success);
+        }
+
+        .games-title {
+            font-size: 1rem;
+            color: var(--success);
+            margin-bottom: 10px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .games-list {
+            list-style: none;
+        }
+
+        .games-list li {
+            padding: 6px 0;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--dark);
+        }
+
+        .games-list li::before {
+            content: '🎮';
+            font-size: 0.9rem;
+        }
+
+        .hebrew-preview {
+            background: linear-gradient(135deg, rgba(139, 95, 191, 0.08) 0%, rgba(74, 111, 165, 0.05) 100%);
+            padding: 15px;
+            border-radius: var(--radius);
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .hebrew-text {
+            font-family: 'Times New Roman', 'Arial Hebrew', serif;
+            font-size: 1.8rem;
+            direction: rtl;
+            color: var(--primary-dark);
+            margin: 10px 0;
+        }
+
+        .hebrew-label {
+            font-size: 0.85rem;
+            color: var(--gray);
+            font-style: italic;
+        }
+
+        /* Footer */
+        .main-footer {
+            background: linear-gradient(135deg, rgba(44, 62, 80, 0.95) 0%, rgba(78, 111, 165, 0.95) 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        .footer-logo {
+            margin-bottom: 20px;
+        }
+
+        .footer-logo img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 3px solid white;
+        }
+
+        .footer-info p {
+            margin: 8px 0;
+            opacity: 0.9;
+        }
+
+        .copyright {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        /* Animaciones */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-header h1 {
+                font-size: 2rem;
+            }
+
+            .main-header .subtitle {
+                font-size: 1.1rem;
+            }
+
+            .weeks-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .week-number {
+                font-size: 3rem;
+            }
+        }
+
+        /* Botón de acción */
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 15px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-top: 30px;
+            box-shadow: var(--shadow-lg);
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .cta-button i {
+            margin-left: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .cta-button:hover i {
+            transform: translateX(5px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Principal -->
+    <header class="main-header">
+        <div class="header-content">
+            <div class="logo-container">
+                <img src="https://i.postimg.cc/wMJ2bCgV/mas-logos.jpg" alt="Logo Vivos para Servir" class="logo-main">
+            </div>
+            <h1>Curso de Hebreo Bíblico</h1>
+            <p class="subtitle">Guía de Objetivos de Aprendizaje - Semanas 1 a 10</p>
+            <p class="description">
+                Esta guía te muestra claramente qué lograrás en cada semana del curso.
+                Cada módulo está diseñado para construir sobre el anterior, llevándote paso a paso
+                hacia el dominio del hebreo bíblico elemental.
+            </p>
+            <a href="#semanas" class="cta-button">
+                Explorar Semanas <i class="fas fa-arrow-down"></i>
+            </a>
+        </div>
+    </header>
+
+    <!-- Contenedor Principal -->
+    <main class="container" id="semanas">
+        <div class="weeks-grid">
+
+            <!-- Semana 1 -->
+            <article class="week-card week-1">
+                <div class="week-header">
+                    <span class="week-number">01</span>
+                    <h2 class="week-title"><i class="fas fa-star-of-david"></i> Fundamentos del Alfabeto</h2>
+                    <p class="week-subtitle">Introducción al Hebreo Bíblico y sus letras</p>
+                </div>
+                <div class="week-content">
+                    <h3 class="objectives-title">
+                        <i class="fas fa-bullseye"></i>
+                        Objetivos de Aprendizaje
+                    </h3>
+                    <ul class="objectives-list">
+                        <li>Comprender la importancia teológica y exegética del hebreo bíblico</li>
+                        <li>Dominar las 22 consonantes del alfabeto hebreo (nombre, forma y sonido)</li>
+                        <li>Entender el sistema de escritura direccional (derecha a izquierda)</li>
+                        <li>Aprender los principios básicos de pronunciación hebrea</li>
+                        <li>Reconocer patrones literarios como los salmos acrósticos</li>
+                        <li>Familiarizarse con el valor numérico de las letras</li>
+                    </ul>
+
+                    <div class="topics-section">
+                        <h4 class="topics-title">
+                            <i class="fas fa-book-open"></i>
+                            Temas Principales
+                        </h4>
+                        <div class="topics-tags">
+                            <span class="topic-tag">Curiosidad Exegética</span>
+                            <span class="topic-tag">Alfabeto Completo</span>
+                            <span class="topic-tag">Pronunciación</span>
+                            <span class="topic-tag">Salmos Acrósticos</span>
+                        </div>
+                    </div>
+
+                    <div class="games-section">
+                        <h4 class="games-title">
+                            <i class="fas fa-gamepad"></i>
+                            Juegos y Práctica
+                        </h4>
+                        <ul class="games-list">
+                            <li>Simulador de alfabeto interactivo</li>
+                            <li>Juego de emparejamiento letra-sonido</li>
+                            <li>Ejercicios de pronunciación básica</li>
+                        </ul>
+                    </div>
+
+                    <div class="hebrew-preview">
+                        <p class="hebrew-label">Letras que aprenderás:</p>
+                        <p class="hebrew-text">א ב ג ד ה ו ז ח ט י כ ל מ נ ס ע פ צ ק ר ש ת</p>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Semana 2 -->
+            <article class="week-card week-2">
+                <div class="week-header">
+                    <span class="week-number">02</span>
+                    <h2 class="week-title"><i class="fas fa-font"></i> Sistema Vocálico</h2>
+                    <p class="week-subtitle">Las vocales hebreas y el sistema de niqqud</p>
+                </div>
+                <div class="week-content">
+                    <h3 class="objectives-title">
+                        <i class="fas fa-bullseye"></i>
+                        Objetivos de Aprendizaje
+                    </h3>
+                    <ul class="objectives-list">
+                        <li>Comprender el desarrollo histórico del sistema vocálico masorético</li>
+                        <li>Dominar las vocales largas (Qamets, Tsere, Holem)</li>
+                        <li>Dominar las vocales breves (Pathach, Seghol, Hireq, Qamets Hatuf, Qibbuts)</li>
+                        <li>Aprender las vocales reducidas (Sheva, Hateph-Pathach, Hateph-Seghol, Hateph-Qamets)</li>
+                        <li>Distinguir entre tipos y clases vocálicas</li>
+                        <li>Practicar la transliteración precisa de vocales</li>
+                    </ul>
+
+                    <div class="topics-section">
+                        <h4 class="topics-title">
+                            <i class="fas fa-book-open"></i>
+                            Temas Principales
+                        </h4>
+                        <div class="topics-tags">
+                            <span class="topic-tag">Vocales Largas</span>
+                            <span class="topic-tag">Vocales Breves</span>
+                            <span class="topic-tag">Vocales Reducidas</span>
+                            <span class="topic-tag">Niqqud</span>
+                            <span class="topic-tag">Transliteración</span>
+                        </div>
+                    </div>
+
+                    <div class="games-section">
+                        <h4 class="games-title">
+                            <i class="fas fa-gamepad"></i>
+                            Juegos y Práctica
+                        </h4>
+                        <ul class="games-list">
+                            <li>Juego de vocales normales</li>
+                            <li>Práctica de otras vocales</li>
+                            <li>Ejercicios de clasificación vocálica</li>
+                        </ul>
+                    </div>
+
+                    <div class="hebrew-preview">
+                        <p class="hebrew-label">Ejemplos vocálicos:</p>
+                        <p class="hebrew-text">בָּ בֵּ בֹּ בַּ בֶּ בִּ בָׇּ בֻּ</p>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Semana 3 -->
+            <article class="week-card week-3">
+                <div class="week-header">
+                    <span class="week-number">03</span>
+                    <h2 class="week-title"><i class="fas fa-music"></i> Silabeo y Pronunciación</h2>
+                    <p class="week-subtitle">Reglas de división silábica y acentuación</p>
+                </div>
+                <div class="week-content">
+                    <h3 class="objectives-title">
+                        <i class="fas fa-bullseye"></i>
+                        Objetivos de Aprendizaje
+                    </h3>
+                    <ul class="objectives-list">
+                        <li>Aplicar las dos reglas fundamentales del silabeo hebreo</li>
+                        <li>Identificar sílabas abiertas y cerradas</li>
+                        <li>Comprender el concepto de sílaba tónica y átona</li>
+                        <li>Dominar las reglas de Sheva (vocal vs. silencioso)</li>
+                        <li>Practicar la pronunciación correcta de palabras multisilábicas</li>
+                        <li>Entender el sistema de acentos te'amim como notación musical antigua</li>
+                    </ul>
+
+                    <div class="topics-section">
+                        <h4 class="topics-title">
+                            <i class="fas fa-book-open"></i>
+                            Temas Principales
+                        </h4>
+                        <div class="topics-tags">
+                            <span class="topic-tag">Silabeo</span>
+                            <span class="topic-tag">Sheva</span>
+                            <span class="topic-tag">Acentuación</span>
+                            <span class="topic-tag">Ta'amim</span>
+                            <span class="topic-tag">Pronunciación</span>
+                        </div>
+                    </div>
+
+                    <div class="games-section">
+                        <h4 class="games-title">
+                            <i class="fas fa-gamepad"></i>
+                            Juegos y Práctica
+                        </h4>
+                        <ul class="games-list">
+                            <li>Juegos de práctica de silabeo</li>
+                            <li>Ejercicios de identificación de Sheva</li>
+                        </ul>
+                    </div>
+
+                    <div class="hebrew-preview">
+                        <p class="hebrew-label">Ejemplo de silabeo:</p>
+                        <p class="hebrew-text">בְּרֵאשִׁית = בְּ + רֵא + שִׁית</p>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Semana 4 -->
+            <article class="week-card week-4">
+                <div class="week-header">
+                    <span class="week-number">04</span>
+                    <h2 class="week-title"><i class="fas fa-users"></i> El Sustantivo</h2>
+                    <p class="week-subtitle">Género, número y terminaciones nominales</p>
+                </div>
+                <div class="week-content">
+                    <h3 class="objectives-title">
+                        <i class="fas fa-bullseye"></i>
+                        Objetivos de Aprendizaje
+                    </h3>
+                    <ul class="objectives-list">
+                        <li>Identificar el género de los sustantivos (masculino y femenino)</li>
+                        <li>Dominar las terminaciones de plural masculino (-ים) y femenino (-וֹת)</li>
+                        <li>Comprender y usar el número dual (-ַ֫יִם)</li>
+                        <li>Reconocer términos de parentesco teológicamente significativos</li>
+                        <li>Entender la relación entre forma léxica y forma flexionada</li>
+                        <li>Ampliar vocabulario básico de sustantivos comunes</li>
+                    </ul>
+
+                    <div class="topics-section">
+                        <h4 class="topics-title">
+                            <i class="fas fa-book-open"></i>
+                            Temas Principales
+                        </h4>
+                        <div class="topics-tags">
+                            <span class="topic-tag">Género</span>
+                            <span class="topic-tag">Número Dual</span>
+                            <span class="topic-tag">Plurales</span>
+                            <span class="topic-tag">Parentesco</span>
+                            <span class="topic-tag">Vocabulario</span>
+                        </div>
+                    </div>
+
+                    <div class="games-section">
+                        <h4 class="games-title">
+                            <i class="fas fa-gamepad"></i>
+                            Juegos y Práctica
+                        </h4>
+                        <ul class="games-list">
+                            <li>Juego de género de sustantivos</li>
+                            <li>Práctica de plural masculino/femenino</li>
+                            <li>Laboratorio de formas duales</li>
+                        </ul>
+                    </div>
+
+                    <div class="hebrew-preview">
+                        <p class="hebrew-label">Sustantivos en tres números:</p>
+                        <p class="hebrew-text">סוּס / סוּסִים / סוּסַ֫יִם</p>
+                        <p class="hebrew-label">caballo / caballos / dos caballos</p>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Semana 5 -->
+            <article class="week-card week-5">
+                <div class="week-header">
+                    <span class="week-number">05</span>
+                    <h2 class="week-title"><i class="fas fa-link"></i> Artículo y Conjunción</h2>
+                    <p class="week-subtitle">Determinación nominal y conexión waw</p>
+                </div>
+                <div class="week-content">
+                    <h3 class="objectives-title">
+                        <i class="fas fa-bullseye"></i>
+                        Objetivos de Aprendizaje
+                    </h3>
+                    <ul class="objectives-list">
+                        <li>Dominar el artículo definido (הַ-) y sus variaciones fonéticas</li>
+                        <li>Comprender las reglas de la Dagesh Forte en el artículo</li>
+                        <li>Aprender la conjunción waw (וְ-) y sus cuatro formas básicas</li>
+                        <li>Entender los cambios vocálicos de la conjunción antes de diferentes letras</li>
+                        <li>Descubrir matices teológicos en expresiones idiomáticas</li>
+                        <li>Practicar traducción de frases con artículo y conjunción</li>
+                    </ul>
+
+                    <div class="topics-section">
+                        <h4 class="topics-title">
+                            <i class="fas fa-book-open"></i>
+                            Temas Principales
+                        </h4>
+                        <div class="topics-tags">
+                            <span class="topic-tag">Artículo Definido</span>
+                            <span class="topic-tag">Conjunción Waw</span>
+                            <span class="topic-tag">Dagesh Forte</span>
+                            <span class="topic-tag">Expresiones Idiomáticas</span>
+                        </div>
+                    </div>
+
+                    <div class="games-section">
+                        <h4 class="games-title">
+                            <i class="fas fa-gamepad"></i>
+                            Juegos y Práctica
+                        </h4>
+                        <ul class="games-list">
+                            <li>Juego del artículo definido</li>
+                            <li>Práctica de conjunción waw</li>
+                        </ul>
+                    </div>
+
+                    <div class="hebrew-preview">
+                        <p class="hebrew-label">La "larga nariz" de Dios:</p>
+                        <p class="hebrew-text">אֶ֥רֶךְ אַפַּ֖יִם</p>
+                        <p class="hebrew-label">lento para la ira (literalmente: largo de narices)</p>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Semana 6 -->
+            <article class="week-card week-6">
+                <div class="week-header">
+                    <span class="week-number">06</span>
+                    <h2 class="week-title"><i class="fas fa-arrow-right"></i> Preposiciones</h2>
+                    <p class="week-subtitle">Relaciones espaciales, temporales y lógicas</p>
+                </div>
+                <div class="week-content">
+                    <h3 class="objectives-title">
+                        <i class="fas fa-bullseye"></i>
+                        Objetivos de Aprendizaje
+                    </h3>
+                    <ul class="objectives-list">
+                        <li>Distinguir los tres tipos de preposiciones hebreas</li>
+                        <li>Dominar preposiciones independientes comunes</li>
+                        <li>Entender preposiciones con Maqqef</li>
+                        <li>Aprender las preposiciones inseparables (בְּ, כְּ, לְ)</li>
+                        <li>Comprender relaciones espaciales y temporales en hebreo</li>
+                        <li>Analizar nombres teológicamente significativos con preposiciones</li>
+                    </ul>
+
+                    <div class="topics-section">
+                        <h4 class="topics-title">
+                            <i class="fas fa-book-open"></i>
+                            Temas Principales
+                        </h4>
+                        <div class="topics-tags">
+                            <span class="topic-tag">Preposiciones Independientes</span>
+                            <span class="topic-tag">Maqqef</span>
+                            <span class="topic-tag">Preposiciones Inseparables</span>
+                            <span class="topic-tag">Objeto Directo</span>
+                        </div>
+                    </div>
+
+                    <div class="games-section">
+                        <h4 class="games-title">
+                            <i class="fas fa-gamepad"></i>
+                            Juegos y Práctica
+                        </h4>
+                        <ul class="games-list">
+                            <li>Juego de preposiciones</li>
+                            <li>Práctica de partículas inseparables</li>
+                        </ul>
+                    </div>
+
+                    <div class="hebrew-preview">
+                        <p class="hebrew-label">¿Quién como Yah?:</p>
+                        <p class="hebrew-text">מִיכָה = מִי + כְּ + יָהּ</p>
+                        <p class="hebrew-label">Miqueas = ¿quién? + como + Yah</p>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Semana 7 -->
+            <article class="week-card week-7">
+                <div class="week-header">
+                    <span class="week-number">07</span>
+                    <h2 class="week-title"><i class="fas fa-palette"></i> El Adjetivo</h2>
+                    <p class="week-subtitle">Descripción, caracterización y concordancia</p>
+                </div>
+                <div class="week-content">
+                    <h3 class="objectives-title">
+                        <i class="fas fa-bullseye"></i>
+                        Objetivos de Aprendizaje
+                    </h3>
+                    <ul class="objectives-list">
+                        <li>Entender la función modificadora de los adjetivos</li>
+                        <li>Dominar la flexión de adjetivos en género y número</li>
+                        <li>Aplicar reglas de concordancia adjetivo-sustantivo</li>
+                        <li>Distinguir uso atributivo y predicativo del adjetivo</li>
+                        <li>Reconocer patrones vocálicos en adjetivos comunes</li>
+                        <li>Ampliar vocabulario descriptivo esencial</li>
+                    </ul>
+
+                    <div class="topics-section">
+                        <h4 class="topics-title">
+                            <i class="fas fa-book-open"></i>
+                            Temas Principales
+                        </h4>
+                        <div class="topics-tags">
+                            <span class="topic-tag">Flexión Adjetival</span>
+                            <span class="topic-tag">Concordancia</span>
+                            <span class="topic-tag">Uso Atributivo</span>
+                            <span class="topic-tag">Uso Predicativo</span>
+                            <span class="topic-tag">Patrones Vocálicos</span>
+                        </div>
+                    </div>
+
+                    <div class="games-section">
+                        <h4 class="games-title">
+                            <i class="fas fa-gamepad"></i>
+                            Juegos y Práctica
+                        </h4>
+                        <ul class="games-list">
+                            <li>Juego de concordancia adjetival</li>
+                            <li>Práctica de uso atributivo/predicativo</li>
+                            <li>Ejercicios de patrones vocálicos</li>
+                        </ul>
+                    </div>
+
+                    <div class="hebrew-preview">
+                        <p class="hebrew-label">Adjetivo טוֹב (bueno):</p>
+                        <p class="hebrew-text">טוֹב / טוֹבָה / טוֹבִים / טוֹבוֹת</p>
+                        <p class="hebrew-label">m.s. / f.s. / m.p. / f.p.</p>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Semana 8 -->
+            <article class="week-card week-8">
+                <div class="week-header">
+                    <span class="week-number">08</span>
+                    <h2 class="week-title"><i class="fas fa-user-tag"></i> Los Pronombres</h2>
+                    <p class="week-subtitle">Personales independientes y énfasis subjetivo</p>
+                </div>
+                <div class="week-content">
+                    <h3 class="objectives-title">
+                        <i class="fas fa-bullseye"></i>
+                        Objetivos de Aprendizaje
+                    </h3>
+                    <ul class="objectives-list">
+                        <li>Dominar el paradigma completo de pronombres personales independientes</li>
+                        <li>Comprender la distinción entre personas (1ª, 2ª, 3ª)</li>
+                        <li>Distinguir formas masculinas y femeninas en 2ª y 3ª persona</li>
+                        <li>Entender el uso enfático del pronombre independiente</li>
+                        <li>Reconocer que los pronombres son siempre subjetivos</li>
+                        <li>Analizar ejemplos teológicos de énfasis pronominal</li>
+                    </ul>
+
+                    <div class="topics-section">
+                        <h4 class="topics-title">
+                            <i class="fas fa-book-open"></i>
+                            Temas Principales
+                        </h4>
+                        <div class="topics-tags">
+                            <span class="topic-tag">Pronombres Independientes</span>
+                            <span class="topic-tag">Primera Persona</span>
+                            <span class="topic-tag">Segunda Persona</span>
+                            <span class="topic-tag">Tercera Persona</span>
+                            <span class="topic-tag">Énfasis</span>
+                        </div>
+                    </div>
+
+                    <div class="games-section">
+                        <h4 class="games-title">
+                            <i class="fas fa-gamepad"></i>
+                            Juegos y Práctica
+                        </h4>
+                        <ul class="games-list">
+                            <li>Juego de identificación pronominal</li>
+                            <li>Práctica de paradigmas completos</li>
+                            <li>Ejercicios de uso enfático</li>
+                        </ul>
+                    </div>
+
+                    <div class="hebrew-preview">
+                        <p class="hebrew-label">Yo mismo he dado:</p>
+                        <p class="hebrew-text">וַאֲנִי נְתַתִּיו</p>
+                        <p class="hebrew-label">y yo mismo lo he dado (Levítico 17:11)</p>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Semana 9 -->
+            <article class="week-card week-9">
+                <div class="week-header">
+                    <span class="week-number">09</span>
+                    <h2 class="week-title"><i class="fas fa-paperclip"></i> Sufijos Pronominales</h2>
+                    <p class="week-subtitle">Posesión y relación con sustantivos</p>
+                </div>
+                <div class="week-content">
+                    <h3 class="objectives-title">
+                        <i class="fas fa-bullseye"></i>
+                        Objetivos de Aprendizaje
+                    </h3>
+                    <ul class="objectives-list">
+                        <li>Comprender la diferencia entre pronombres independientes y sufijos</li>
+                        <li>Dominar sufijos pronominales con sustantivos masculinos singulares</li>
+                        <li>Dominar sufijos pronominales con sustantivos femeninos singulares</li>
+                        <li>Aplicar sufijos a sustantivos en plural masculino y femenino</li>
+                        <li>Entender cambios fonéticos al añadir sufijos</li>
+                        <li>Traducir expresiones posesivas con precisión</li>
+                    </ul>
+
+                    <div class="topics-section">
+                        <h4 class="topics-title">
+                            <i class="fas fa-book-open"></i>
+                            Temas Principales
+                        </h4>
+                        <div class="topics-tags">
+                            <span class="topic-tag">Sufijos Posesivos</span>
+                            <span class="topic-tag">Sustantivos Masculinos</span>
+                            <span class="topic-tag">Sustantivos Femeninos</span>
+                            <span class="topic-tag">Cambios Fonéticos</span>
+                            <span class="topic-tag">Posesión</span>
+                        </div>
+                    </div>
+
+                    <div class="games-section">
+                        <h4 class="games-title">
+                            <i class="fas fa-gamepad"></i>
+                            Juegos y Práctica
+                        </h4>
+                        <ul class="games-list">
+                            <li>Juego de sufijos con sustantivos</li>
+                            <li>Práctica de formas posesivas</li>
+                        </ul>
+                    </div>
+
+                    <div class="hebrew-preview">
+                        <p class="hebrew-label">Dios con nosotros:</p>
+                        <p class="hebrew-text">עִמָּנוּאֵל = עִם + נוּ + אֵל</p>
+                        <p class="hebrew-label">con + nosotros + Dios</p>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Semana 10 -->
+            <article class="week-card week-10">
+                <div class="week-header">
+                    <span class="week-number">10</span>
+                    <h2 class="week-title"><i class="fas fa-chain"></i> Cadena Constructa</h2>
+                    <p class="week-subtitle">Relaciones genitivas y estado constructo</p>
+                </div>
+                <div class="week-content">
+                    <h3 class="objectives-title">
+                        <i class="fas fa-bullseye"></i>
+                        Objetivos de Aprendizaje
+                    </h3>
+                    <ul class="objectives-list">
+                        <li>Comprender el concepto de cadena constructa (ausencia de "de")</li>
+                        <li>Distinguir entre estado constructo y estado absoluto</li>
+                        <li>Identificar cambios vocálicos en estado constructo</li>
+                        <li>Traducir correctamente relaciones posesivas y genitivas</li>
+                        <li>Reconocer expresiones superlativas con constructo</li>
+                        <li>Analizar títulos teológicos importantes con constructo</li>
+                    </ul>
+
+                    <div class="topics-section">
+                        <h4 class="topics-title">
+                            <i class="fas fa-book-open"></i>
+                            Temas Principales
+                        </h4>
+                        <div class="topics-tags">
+                            <span class="topic-tag">Estado Constructo</span>
+                            <span class="topic-tag">Estado Absoluto</span>
+                            <span class="topic-tag">Relación Genitiva</span>
+                            <span class="topic-tag">Posesión</span>
+                            <span class="topic-tag">Superlativos</span>
+                        </div>
+                    </div>
+
+                    <div class="games-section">
+                        <h4 class="games-title">
+                            <i class="fas fa-gamepad"></i>
+                            Juegos y Práctica
+                        </h4>
+                        <ul class="games-list">
+                            <li>Juego de cadenas constructas</li>
+                            <li>Práctica de estado constructo/absoluto</li>
+                        </ul>
+                    </div>
+
+                    <div class="hebrew-preview">
+                        <p class="hebrew-label">Dios de dioses y Señor de señores:</p>
+                        <p class="hebrew-text">אֱלֹהֵי הָאֱלֹהִים וַאֲדֹנֵי הָאֲדֹנִים</p>
+                        <p class="hebrew-label">Deuteronomio 10:17</p>
+                    </div>
+                </div>
+            </article>
+
+        </div>
+
+        <!-- Sección de Progreso -->
+        <section style="background: white; border-radius: var(--radius-lg); padding: 40px; margin-top: 50px; box-shadow: var(--shadow-lg); text-align: center;">
+            <h2 style="color: var(--primary-dark); margin-bottom: 20px; font-size: 2rem;">
+                <i class="fas fa-chart-line"></i> Tu Camino de Aprendizaje
+            </h2>
+            <p style="font-size: 1.1rem; color: var(--dark); max-width: 800px; margin: 0 auto 30px;">
+                Cada semana construye sobre la anterior. Te recomendamos seguir el orden secuencial
+                para maximizar tu comprensión y retención del material.
+            </p>
+
+            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin-top: 30px;">
+                <div style="background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); color: white; padding: 15px 25px; border-radius: 50px; font-weight: 600;">
+                    <i class="fas fa-check-circle"></i> 10 Semanas Completas
+                </div>
+                <div style="background: linear-gradient(135deg, var(--success) 0%, #27ae60 100%); color: white; padding: 15px 25px; border-radius: 50px; font-weight: 600;">
+                    <i class="fas fa-gamepad"></i> +20 Juegos Interactivos
+                </div>
+                <div style="background: linear-gradient(135deg, var(--warning) 0%, #e67e22 100%); color: white; padding: 15px 25px; border-radius: 50px; font-weight: 600;">
+                    <i class="fas fa-book-reader"></i> 50+ Lecciones Detalladas
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-logo">
+            <img src="https://i.postimg.cc/wMJ2bCgV/mas-logos.jpg" alt="Logo Vivos para Servir">
+        </div>
+        <div class="footer-info">
+            <p><strong>Ministerio "Vivos para Servir"</strong></p>
+            <p>Curso de Hebreo Bíblico Elemental</p>
+            <p>Descubriendo las profundidades de las Escrituras</p>
+            <p class="copyright">© 2026 - Todos los derechos reservados</p>
+            <p style="margin-top: 15px; font-size: 0.9rem; opacity: 0.8;">
+                <i class="fas fa-heart" style="color: #FFB74D;"></i>
+                Estudiando para servir mejor
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll para el botón CTA
+        document.querySelector('.cta-button').addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                targetElement.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+
+        // Animación de aparición al hacer scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.week-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
